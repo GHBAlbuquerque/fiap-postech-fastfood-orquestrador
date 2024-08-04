@@ -187,7 +187,7 @@ Passo-a-passo:
 1. Copie o conteúdo do arquivo misc/openapi.json
 2. Vá para o site 'https://editor.swagger.io/' e cole o json copiado na esquerda
 3. Veja os endpoints disponíveis para a API
-4. Para realizar chamadas aos endpoints http do gateway, utilize a 'Invoke URL'e os seguintes headers:
+4. Para realizar chamadas aos endpoints http do gateway, utilize a 'Invoke URL' e os seguintes headers:
     1. cpf_cliente -> valor cadastrado previamente: 93678719023
     2. senha_cliente -> valor cadastrado previamente: FIAPauth123_
 
@@ -195,7 +195,7 @@ OU
 
 1. Abra o arquivo misc/openapi.html no seu navegador
 2. Veja os endpoints disponíveis para a API
-3. Para realizar chamadas aos endpoints http do gateway, utilize a 'Invoke URL'e os seguintes headers:
+3. Para realizar chamadas aos endpoints http do gateway, utilize a 'Invoke URL' e os seguintes headers:
     1. cpf_cliente -> valor cadastrado previamente: 93678719023
     2. senha_cliente -> valor cadastrado previamente: FIAPauth123_
 
