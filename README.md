@@ -26,6 +26,7 @@ Os resultados destes estudos estão disponíveis no link abaixo:
 Solução arquitetônica realizada (Cloud AWS) completa:
 ![](misc/sol_fase_5.drawio.svg)
 
+
 <br/>
 
 ### 📐 Desenho de Solução (SAGA)
@@ -73,7 +74,7 @@ Compõem esta entrega:
 
 <br/>
 
-### 💿 Getting started - Rodando com CICD e infra descentralizada na Cloud AWS
+### 💿 Getting started - Rodando com CI/CD e infra descentralizada na Cloud AWS
 
 Faça o download ou clone este projeto e abra em uma IDE (preferencialmente IntelliJ).
 É preciso ter:
