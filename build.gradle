@@ -33,6 +33,8 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
     implementation 'org.hibernate.validator:hibernate-validator'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.2.0'
+
+    // aws
     implementation group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.12.720'
     implementation group: 'com.amazonaws', name: 'aws-java-sdk-core', version: '1.12.720'
     implementation(group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.12.745') {
@@ -41,6 +43,14 @@ dependencies {
     implementation group: 'software.amazon.awssdk', name: 'dynamodb', version: '2.26.5'
     implementation(platform("software.amazon.awssdk:bom:2.16.70"))
     implementation("software.amazon.awssdk:sso:2.16.76")
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.12.686'
+
+
+    // spring-cloud-aws
+    implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-core', version: '3.1.1'
+    implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-starter-sqs', version: '3.1.1'
+
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 

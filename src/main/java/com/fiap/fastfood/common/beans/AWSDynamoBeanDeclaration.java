@@ -8,6 +8,7 @@ import software.amazon.awssdk.regions.Region;
 
 @Configuration
 public class AWSDynamoBeanDeclaration {
+
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClient.builder()
@@ -15,3 +16,4 @@ public class AWSDynamoBeanDeclaration {
                 .build();
     }
 }
+
