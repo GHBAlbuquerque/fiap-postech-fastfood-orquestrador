@@ -24,6 +24,9 @@ spec:
             limits:
               cpu: "500m"  # Limite de CPU
               memory: "1Gi"
+          env:
+            - name: ACCOUNT_ID
+              value: "731362576078"
           ports:
             - containerPort: 80
               protocol: TCP
