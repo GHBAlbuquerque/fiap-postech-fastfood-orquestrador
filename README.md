@@ -55,9 +55,9 @@ Compõem esta entrega:
 > * Repositório da Infra (ApiGateway e Cognito User Pools)
    >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood
 > * Repositório das Tabelas Dynamo
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-dynamo
+  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-dynamo
 > * Repositório da Base de Dados RDS
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-rds
+  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-rds
 > * Repositório da App de Cliente
   >   * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-cliente
 > * Repositório da App de Produto
