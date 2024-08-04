@@ -8,7 +8,12 @@ public class OrderGateway {
 
     private static final Logger logger = LogManager.getLogger(OrderGateway.class);
 
-    @SqsListener({"${my.queue.url}", "myOtherQueue"})
+    @SqsListener("${aws.queue_comando_criar_pedido.url}")
+    public void listenerCriarPedido(String message) {
+        System.out.println(message);
+    }
+
+    @SqsListener("${aws.queue_comando_criar_pedido.url}")
     public void listenTwoQueues(String message) {
         System.out.println(message);
     }

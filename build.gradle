@@ -45,11 +45,9 @@ dependencies {
     implementation("software.amazon.awssdk:sso:2.16.76")
     implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.12.686'
 
-
     // spring-cloud-aws
     implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-core', version: '3.1.1'
     implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-starter-sqs', version: '3.1.1'
-
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

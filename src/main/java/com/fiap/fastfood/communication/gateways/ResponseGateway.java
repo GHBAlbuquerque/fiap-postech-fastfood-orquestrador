@@ -8,8 +8,8 @@ public class ResponseGateway {
 
     private static final Logger logger = LogManager.getLogger(ResponseGateway.class);
 
-    @SqsListener({"${my.queue.url}", "myOtherQueue"})
-    public void listenTwoQueues(String message) {
+    @SqsListener(queueNames = "${queue_resposta_criar_pedido}", maxConcurrentMessages = "1")
+    public void listenerCreateOrderResponse(String message) {
         System.out.println(message);
     }
 }
