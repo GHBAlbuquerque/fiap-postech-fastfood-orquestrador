@@ -6,15 +6,14 @@ import com.fiap.fastfood.core.entity.Order;
 public class OrderBuilder {
 
     public static Order fromRequestToDomain(CreateOrderRequest request) {
-        return Order.builder()
-                .customerId(request.getCustomerId())
-                .items(
+        return new Order()
+                .setCustomerId(request.getCustomerId())
+                .setItems(
                         request.getItems()
                                 .stream()
                                 .map(ItemBuilder::fromRequestToDomain)
                                 .toList()
-                )
-                .build();
+                );
     }
 
 }
