@@ -16,6 +16,7 @@ public class ResponseGatewayImpl implements ResponseGateway {
     @SqsListener(queueNames = "${queue_resposta_criar_pedido}", maxConcurrentMessages = "1")
     public void listenToCreateOrderResponse(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
+                message.getHeaders().getOrderId(),
                 LoggingPattern.RESPONSE_INIT_LOG,
                 message.getHeaders().getMicrosservice()
         ));
@@ -23,11 +24,13 @@ public class ResponseGatewayImpl implements ResponseGateway {
         try {
 
             logger.info(LoggingPattern.RESPONSE_END_LOG,
+                    message.getHeaders().getOrderId(),
                     message.getHeaders().getMicrosservice());
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.RESPONSE_ERROR_LOG,
+                    message.getHeaders().getOrderId(),
                     message.getHeaders().getMicrosservice(),
                     ex.getMessage(),
                     message.toString());
@@ -40,17 +43,20 @@ public class ResponseGatewayImpl implements ResponseGateway {
     public void listenToTestQueue(CustomQueueMessage<String> message) {
         logger.info(String.format(
                 LoggingPattern.RESPONSE_INIT_LOG,
+                message.getHeaders().getOrderId(),
                 message.getHeaders().getMicrosservice()
         ));
 
         try {
 
             logger.info(LoggingPattern.RESPONSE_END_LOG,
+                    message.getHeaders().getOrderId(),
                     message.getHeaders().getMicrosservice());
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.RESPONSE_ERROR_LOG,
+                    message.getHeaders().getOrderId(),
                     message.getHeaders().getMicrosservice(),
                     ex.getMessage(),
                     message.toString());

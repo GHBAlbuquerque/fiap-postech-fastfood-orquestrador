@@ -25,9 +25,9 @@ public class CustomerGatewayImpl implements CustomerGateway {
     public void commandCustomerNotification(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CREATION",
+                message.getHeaders().getOrderId(),
                 "Customer Notification",
-                message.toString()
+                message
         ));
 
         try {
@@ -37,17 +37,21 @@ public class CustomerGatewayImpl implements CustomerGateway {
                     queueCustomerNotification
             );
 
-            logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CREATION",
-                    "Customer Notification");
+            logger.info(String.format(
+                    LoggingPattern.COMMAND_END_LOG,
+                    message.getHeaders().getOrderId(),
+                    "Customer Notification")
+            );
 
         } catch (Exception ex) {
 
-            logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CREATION",
+            logger.info(String.format(
+                    LoggingPattern.COMMAND_ERROR_LOG,
+                    message.getHeaders().getOrderId(),
                     "Customer Notification",
                     ex.getMessage(),
-                    message.toString());
+                    message)
+            );
 
             throw new OrderCreationException(ExceptionCodes.SAGA_01_CUSTOMER_NOTIFICATION, ex.getMessage());
         }

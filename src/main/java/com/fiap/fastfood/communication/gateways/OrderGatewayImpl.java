@@ -35,7 +35,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderCreation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CREATION",
+                message.getHeaders().getOrderId(),
                 "Order Creation",
                 message.toString()
         ));
@@ -48,13 +48,13 @@ public class OrderGatewayImpl implements OrderGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Order Creation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Order Creation",
                     ex.getMessage(),
                     message.toString());
@@ -68,7 +68,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderPreparation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CREATION",
+                message.getHeaders().getOrderId(),
                 "Order Preparation",
                 message.toString()
         ));
@@ -81,13 +81,13 @@ public class OrderGatewayImpl implements OrderGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Order Preparation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Order Preparation",
                     ex.getMessage(),
                     message.toString());
@@ -102,7 +102,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderCompletion(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CREATION",
+                message.getHeaders().getOrderId(),
                 "Order Completion",
                 message.toString()
         ));
@@ -115,13 +115,13 @@ public class OrderGatewayImpl implements OrderGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Order Completion");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Order Completion",
                     ex.getMessage(),
                     message.toString());
@@ -135,7 +135,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CANCELLATION",
+                message.getHeaders().getOrderId(),
                 "Order Cancellation",
                 message.toString()
         ));
@@ -148,13 +148,13 @@ public class OrderGatewayImpl implements OrderGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CANCELLATION",
+                    message.getHeaders().getOrderId(),
                     "Order Cancellation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CANCELLATION",
+                    message.getHeaders().getOrderId(),
                     "Order Cancellation",
                     ex.getMessage(),
                     message.toString());

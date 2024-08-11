@@ -35,7 +35,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentCreation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CREATION",
+                message.getHeaders().getOrderId(),
                 "Payment Creation",
                 message.toString()
         ));
@@ -48,13 +48,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Creation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Creation",
                     ex.getMessage(),
                     message.toString());
@@ -68,7 +68,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentCharge(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CREATION",
+                message.getHeaders().getOrderId(),
                 "Payment Charge",
                 message.toString()
         ));
@@ -81,13 +81,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Charge");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CREATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Charge",
                     ex.getMessage(),
                     message.toString());
@@ -101,7 +101,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentReversal(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CANCELLATION",
+                message.getHeaders().getOrderId(),
                 "Payment Reversal",
                 message.toString()
         ));
@@ -114,13 +114,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CANCELLATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Reversal");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CANCELLATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Reversal",
                     ex.getMessage(),
                     message.toString());
@@ -135,7 +135,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
-                "ORDER CANCELLATION",
+                message.getHeaders().getOrderId(),
                 "Payment Cancellation",
                 message.toString()
         ));
@@ -148,13 +148,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    "ORDER CANCELLATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Cancellation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    "ORDER CANCELLATION",
+                    message.getHeaders().getOrderId(),
                     "Payment Cancellation",
                     ex.getMessage(),
                     message.toString());
