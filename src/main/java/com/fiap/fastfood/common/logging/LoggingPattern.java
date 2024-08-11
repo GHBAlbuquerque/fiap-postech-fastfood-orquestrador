@@ -11,5 +11,5 @@ public class LoggingPattern {
     public static final String ORQUESTRATION_INIT_LOG = "[ORQUESTRATION] Initating orquestration for {} | Request: {}";
     public static final String ORQUESTRATION_STEP_LOG = "[ORQUESTRATION] SagaId: {} | Initating orquestration for {}";
     public static final String ORQUESTRATION_END_LOG = "[ORQUESTRATION] SagaId: {} | Ended orquestration for {}";
-    public static final String ORQUESTRATION_ERROR_LOG = "[ORQUESTRATION] SagaId: {} | Error orquestrating {}";
+    public static final String ORQUESTRATION_ERROR_LOG = "[ORQUESTRATION] SagaId: {} | Error orquestrating {} | Error Message: {} | Message: {}";
 }

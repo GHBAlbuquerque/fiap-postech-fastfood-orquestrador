@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 public class CustomMessageHeaders {
+
     private String sagaId;
     private String orderId;
     private String messageType;

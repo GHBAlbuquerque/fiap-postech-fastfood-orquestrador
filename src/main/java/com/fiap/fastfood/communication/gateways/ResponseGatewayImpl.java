@@ -1,9 +1,15 @@
 package com.fiap.fastfood.communication.gateways;
 
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
+import com.fiap.fastfood.common.dto.response.CreateOrderResponse;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
+import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
+import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
+import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.interfaces.gateways.ResponseGateway;
+import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
+import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
@@ -11,10 +17,24 @@ import org.apache.logging.log4j.Logger;
 
 public class ResponseGatewayImpl implements ResponseGateway {
 
+    private final OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase;
+    private final OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase;
+    private final OrderGateway orderGateway;
+    private final PaymentGateway paymentGateway;
+    private final OrquestrationGateway orquestrationGateway;
+
     private static final Logger logger = LogManager.getLogger(ResponseGatewayImpl.class);
 
+    public ResponseGatewayImpl(OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase, OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase, OrderGateway orderGateway, PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
+        this.orderCreationOrquestratorUseCase = orderCreationOrquestratorUseCase;
+        this.orderCancellationOrquestratorUseCase = orderCancellationOrquestratorUseCase;
+        this.orderGateway = orderGateway;
+        this.paymentGateway = paymentGateway;
+        this.orquestrationGateway = orquestrationGateway;
+    }
+
     @SqsListener(queueNames = "${queue_resposta_criar_pedido}", maxConcurrentMessages = "1")
-    public void listenToCreateOrderResponse(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void listenToCreateOrderResponse(CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
         logger.info(
                 message.getHeaders().getSagaId(),
                 LoggingPattern.RESPONSE_INIT_LOG,
@@ -22,6 +42,19 @@ public class ResponseGatewayImpl implements ResponseGateway {
         );
 
         try {
+
+            final var stepSuccessful = message.getBody().getStepSuccessful();
+
+            if (stepSuccessful)
+                orderCreationOrquestratorUseCase.orquestrate(message,
+                        orderGateway,
+                        paymentGateway,
+                        orquestrationGateway);
+            else
+                orderCancellationOrquestratorUseCase.orquestrate(message,
+                        orderGateway,
+                        paymentGateway,
+                        orquestrationGateway);
 
             logger.info(LoggingPattern.RESPONSE_END_LOG,
                     message.getHeaders().getSagaId(),
@@ -36,30 +69,6 @@ public class ResponseGatewayImpl implements ResponseGateway {
                     message.toString());
 
             throw new OrderCreationException(ExceptionCodes.SAGA_10_ORDER_RESPONSE_PROCESSING, ex.getMessage());
-        }
-    }
-
-    @SqsListener(queueNames = "${test_queue}", maxConcurrentMessages = "1")
-    public void listenToTestQueue(CustomQueueMessage<String> message) {
-        logger.info(
-                LoggingPattern.RESPONSE_INIT_LOG,
-                message.getHeaders().getSagaId(),
-                message.getHeaders().getMicrosservice()
-        );
-
-        try {
-
-            logger.info(LoggingPattern.RESPONSE_END_LOG,
-                    message.getHeaders().getSagaId(),
-                    message.getHeaders().getMicrosservice());
-
-        } catch (Exception ex) {
-
-            logger.info(LoggingPattern.RESPONSE_ERROR_LOG,
-                    message.getHeaders().getSagaId(),
-                    message.getHeaders().getMicrosservice(),
-                    ex.getMessage(),
-                    message.toString());
         }
     }
 }

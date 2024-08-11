@@ -1,9 +1,6 @@
 package com.fiap.fastfood.core.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
@@ -13,6 +10,7 @@ import java.math.BigDecimal;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Item {
 
     private String productId;
