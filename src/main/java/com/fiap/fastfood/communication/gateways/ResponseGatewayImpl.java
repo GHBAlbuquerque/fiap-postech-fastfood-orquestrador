@@ -15,11 +15,11 @@ public class ResponseGatewayImpl implements ResponseGateway {
 
     @SqsListener(queueNames = "${queue_resposta_criar_pedido}", maxConcurrentMessages = "1")
     public void listenToCreateOrderResponse(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 message.getHeaders().getOrderId(),
                 LoggingPattern.RESPONSE_INIT_LOG,
                 message.getHeaders().getMicrosservice()
-        ));
+        );
 
         try {
 
@@ -41,11 +41,11 @@ public class ResponseGatewayImpl implements ResponseGateway {
 
     @SqsListener(queueNames = "${test_queue}", maxConcurrentMessages = "1")
     public void listenToTestQueue(CustomQueueMessage<String> message) {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.RESPONSE_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 message.getHeaders().getMicrosservice()
-        ));
+        );
 
         try {
 

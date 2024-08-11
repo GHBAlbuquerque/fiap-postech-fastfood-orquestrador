@@ -33,12 +33,12 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
     @Override
     public void commandPaymentCreation(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Payment Creation",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -66,12 +66,12 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
     @Override
     public void commandPaymentCharge(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Payment Charge",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -99,12 +99,12 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
     @Override
     public void commandPaymentReversal(CustomQueueMessage<String> message) throws OrderCancellationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Payment Reversal",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -133,12 +133,12 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
     @Override
     public void commandPaymentCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Payment Cancellation",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(

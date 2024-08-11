@@ -33,12 +33,12 @@ public class OrderGatewayImpl implements OrderGateway {
 
     @Override
     public void commandOrderCreation(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Order Creation",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -66,12 +66,12 @@ public class OrderGatewayImpl implements OrderGateway {
 
     @Override
     public void commandOrderPreparation(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Order Preparation",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -100,12 +100,12 @@ public class OrderGatewayImpl implements OrderGateway {
 
     @Override
     public void commandOrderCompletion(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Order Completion",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -133,12 +133,12 @@ public class OrderGatewayImpl implements OrderGateway {
 
     @Override
     public void commandOrderCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Order Cancellation",
                 message.toString()
-        ));
+        );
 
         try {
             messageSender.sendMessage(

@@ -14,7 +14,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
     @Override
     public void createOrder(Order order, OrderGateway orderGateway) {
-
+        logger.info("");
 
     }
 

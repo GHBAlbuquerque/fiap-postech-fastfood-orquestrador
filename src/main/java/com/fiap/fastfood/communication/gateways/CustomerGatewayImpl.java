@@ -23,12 +23,12 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
     @Override
     public void commandCustomerNotification(CustomQueueMessage<String> message) throws OrderCreationException {
-        logger.info(String.format(
+        logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),
                 "Customer Notification",
                 message
-        ));
+        );
 
         try {
             messageSender.sendMessage(
@@ -37,20 +37,20 @@ public class CustomerGatewayImpl implements CustomerGateway {
                     queueCustomerNotification
             );
 
-            logger.info(String.format(
+            logger.info(
                     LoggingPattern.COMMAND_END_LOG,
                     message.getHeaders().getOrderId(),
-                    "Customer Notification")
+                    "Customer Notification"
             );
 
         } catch (Exception ex) {
 
-            logger.info(String.format(
+            logger.info(
                     LoggingPattern.COMMAND_ERROR_LOG,
                     message.getHeaders().getOrderId(),
                     "Customer Notification",
                     ex.getMessage(),
-                    message)
+                    message
             );
 
             throw new OrderCreationException(ExceptionCodes.SAGA_01_CUSTOMER_NOTIFICATION, ex.getMessage());
