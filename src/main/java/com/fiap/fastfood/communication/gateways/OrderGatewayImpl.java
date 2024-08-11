@@ -1,6 +1,9 @@
 package com.fiap.fastfood.communication.gateways;
 
-import com.fiap.fastfood.common.dto.CustomQueueMessage;
+import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
+import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
+import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
+import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.interfaces.external.MessageSender;
 import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
 import com.fiap.fastfood.common.logging.LoggingPattern;
@@ -29,7 +32,7 @@ public class OrderGatewayImpl implements OrderGateway {
     private static final Logger logger = LogManager.getLogger(OrderGatewayImpl.class);
 
     @Override
-    public void commandOrderCreation(CustomQueueMessage<String> message) {
+    public void commandOrderCreation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CREATION",
@@ -56,11 +59,13 @@ public class OrderGatewayImpl implements OrderGateway {
                     ex.getMessage(),
                     message.toString());
 
+            throw new OrderCreationException(ExceptionCodes.SAGA_02_ORDER_CREATION, ex.getMessage());
+
         }
     }
 
     @Override
-    public void commandOrderPreparation(CustomQueueMessage<String> message) {
+    public void commandOrderPreparation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CREATION",
@@ -87,11 +92,14 @@ public class OrderGatewayImpl implements OrderGateway {
                     ex.getMessage(),
                     message.toString());
 
+            throw new OrderCreationException(ExceptionCodes.SAGA_03_ORDER_PREPARATION, ex.getMessage());
+
         }
+
     }
 
     @Override
-    public void commandOrderCompletion(CustomQueueMessage<String> message) {
+    public void commandOrderCompletion(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CREATION",
@@ -118,11 +126,13 @@ public class OrderGatewayImpl implements OrderGateway {
                     ex.getMessage(),
                     message.toString());
 
+            throw new OrderCreationException(ExceptionCodes.SAGA_04_ORDER_COMPLETION, ex.getMessage());
+
         }
     }
 
     @Override
-    public void commandOrderCancellation(CustomQueueMessage<String> message) {
+    public void commandOrderCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CANCELLATION",
@@ -148,6 +158,8 @@ public class OrderGatewayImpl implements OrderGateway {
                     "Order Cancellation",
                     ex.getMessage(),
                     message.toString());
+
+            throw new OrderCancellationException(ExceptionCodes.SAGA_09_ORDER_CANCELLATION, ex.getMessage());
 
         }
     }

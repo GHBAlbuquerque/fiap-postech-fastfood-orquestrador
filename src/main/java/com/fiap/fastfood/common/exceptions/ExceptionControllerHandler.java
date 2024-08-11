@@ -21,7 +21,7 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         final var message = new ExceptionDetails(
                 "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
                 "The order could not be created.",
-                ex.getCode(),
+                ex.getCode().name(),
                 ex.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
@@ -36,7 +36,7 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         final var message = new ExceptionDetails(
                 "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
                 "The order could not be cancelled.",
-                ex.getCode(),
+                ex.getCode().name(),
                 ex.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),

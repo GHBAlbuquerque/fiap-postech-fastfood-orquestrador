@@ -4,6 +4,7 @@ import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.MessageCreationException;
 import com.fiap.fastfood.common.interfaces.external.MessageSender;
 import org.apache.logging.log4j.LogManager;
@@ -49,7 +50,7 @@ public class MessageSenderimpl implements MessageSender {
             );
 
             throw new MessageCreationException(
-                    "XX",
+                    ExceptionCodes.SAGA_11_MESSAGE_CREATION,
                     "Error creating SQS message. Exception: " + ex.getMessage());
         }
     }

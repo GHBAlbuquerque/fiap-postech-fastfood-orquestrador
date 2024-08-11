@@ -7,11 +7,11 @@ import java.util.List;
 
 public class OrderCreationException extends CustomException {
 
-    public OrderCreationException(String code, String message) {
+    public OrderCreationException(ExceptionCodes code, String message) {
         super(code, message);
     }
 
-    public OrderCreationException(String code, String message, List<CustomError> customErrors) {
+    public OrderCreationException(ExceptionCodes code, String message, List<CustomError> customErrors) {
         super(code, message, customErrors);
     }
 }

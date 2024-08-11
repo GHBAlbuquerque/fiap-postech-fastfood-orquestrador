@@ -7,11 +7,11 @@ import java.util.List;
 
 public class MessageCreationException extends CustomException {
 
-    public MessageCreationException(String code, String message) {
+    public MessageCreationException(ExceptionCodes code, String message) {
         super(code, message);
     }
 
-    public MessageCreationException(String code, String message, List<CustomError> customErrors) {
+    public MessageCreationException(ExceptionCodes code, String message, List<CustomError> customErrors) {
         super(code, message, customErrors);
     }
 }

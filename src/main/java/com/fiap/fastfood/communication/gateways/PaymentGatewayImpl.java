@@ -1,6 +1,9 @@
 package com.fiap.fastfood.communication.gateways;
 
-import com.fiap.fastfood.common.dto.CustomQueueMessage;
+import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
+import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
+import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
+import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.interfaces.external.MessageSender;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.logging.LoggingPattern;
@@ -29,7 +32,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     private static final Logger logger = LogManager.getLogger(PaymentGatewayImpl.class);
 
     @Override
-    public void commandPaymentCreation(CustomQueueMessage<String> message) {
+    public void commandPaymentCreation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CREATION",
@@ -56,11 +59,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
                     ex.getMessage(),
                     message.toString());
 
+            throw new OrderCreationException(ExceptionCodes.SAGA_05_PAYMENT_CREATION, ex.getMessage());
+
         }
     }
 
     @Override
-    public void commandPaymentCharge(CustomQueueMessage<String> message) {
+    public void commandPaymentCharge(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CREATION",
@@ -87,11 +92,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
                     ex.getMessage(),
                     message.toString());
 
+            throw new OrderCreationException(ExceptionCodes.SAGA_06_PAYMENT_CHARGE, ex.getMessage());
+
         }
     }
 
     @Override
-    public void commandPaymentReversal(CustomQueueMessage<String> message) {
+    public void commandPaymentReversal(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CANCELLATION",
@@ -118,11 +125,14 @@ public class PaymentGatewayImpl implements PaymentGateway {
                     ex.getMessage(),
                     message.toString());
 
+            throw new OrderCancellationException(ExceptionCodes.SAGA_07_PAYMENT_REVERSAL, ex.getMessage());
+
         }
+
     }
 
     @Override
-    public void commandPaymentCancellation(CustomQueueMessage<String> message) {
+    public void commandPaymentCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(String.format(
                 LoggingPattern.COMMAND_INIT_LOG,
                 "ORDER CANCELLATION",
@@ -148,6 +158,8 @@ public class PaymentGatewayImpl implements PaymentGateway {
                     "Payment Cancellation",
                     ex.getMessage(),
                     message.toString());
+
+            throw new OrderCancellationException(ExceptionCodes.SAGA_08_PAYMENT_CANCELLATION, ex.getMessage());
 
         }
     }

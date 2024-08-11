@@ -1,4 +1,4 @@
-package com.fiap.fastfood.common.dto;
+package com.fiap.fastfood.common.dto.message;
 
 import lombok.Getter;
 import lombok.Setter;

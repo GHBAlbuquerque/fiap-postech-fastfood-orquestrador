@@ -1,6 +1,8 @@
 package com.fiap.fastfood.communication.gateways;
 
-import com.fiap.fastfood.common.dto.CustomQueueMessage;
+import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
+import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
+import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.interfaces.gateways.ResponseGateway;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import io.awspring.cloud.sqs.annotation.SqsListener;
@@ -12,7 +14,7 @@ public class ResponseGatewayImpl implements ResponseGateway {
     private static final Logger logger = LogManager.getLogger(ResponseGatewayImpl.class);
 
     @SqsListener(queueNames = "${queue_resposta_criar_pedido}", maxConcurrentMessages = "1")
-    public void listenToCreateOrderResponse(CustomQueueMessage<String> message) {
+    public void listenToCreateOrderResponse(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(String.format(
                 LoggingPattern.RESPONSE_INIT_LOG,
                 message.getHeaders().getMicrosservice()
@@ -29,6 +31,8 @@ public class ResponseGatewayImpl implements ResponseGateway {
                     message.getHeaders().getMicrosservice(),
                     ex.getMessage(),
                     message.toString());
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_10_ORDER_RESPONSE_PROCESSING, ex.getMessage());
         }
     }
 
