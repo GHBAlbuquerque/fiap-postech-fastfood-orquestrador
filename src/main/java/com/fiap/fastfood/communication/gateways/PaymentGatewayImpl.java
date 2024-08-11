@@ -37,7 +37,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentCreation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Payment Creation",
                 message.toString()
         );
@@ -45,18 +45,18 @@ public class PaymentGatewayImpl implements PaymentGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queuePaymentCreation
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Creation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Creation",
                     ex.getMessage(),
                     message.toString());
@@ -70,7 +70,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentCharge(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Payment Charge",
                 message.toString()
         );
@@ -78,18 +78,18 @@ public class PaymentGatewayImpl implements PaymentGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queuePaymentChage
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Charge");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Charge",
                     ex.getMessage(),
                     message.toString());
@@ -103,7 +103,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentReversal(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Payment Reversal",
                 message.toString()
         );
@@ -111,18 +111,18 @@ public class PaymentGatewayImpl implements PaymentGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queuePaymentReversal
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Reversal");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Reversal",
                     ex.getMessage(),
                     message.toString());
@@ -137,7 +137,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     public void commandPaymentCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Payment Cancellation",
                 message.toString()
         );
@@ -145,18 +145,18 @@ public class PaymentGatewayImpl implements PaymentGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queuePaymentCancellation
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Cancellation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Payment Cancellation",
                     ex.getMessage(),
                     message.toString());

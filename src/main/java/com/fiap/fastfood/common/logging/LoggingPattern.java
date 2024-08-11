@@ -2,7 +2,6 @@ package com.fiap.fastfood.common.logging;
 
 public class LoggingPattern {
 
-    //TODO: AJUSTAR USO DO LOG
     public static final String COMMAND_INIT_LOG = "[COMMAND] SagaId: {} | Sending Command for {}... | Message: {}";
     public static final String COMMAND_END_LOG = "[COMMAND] SagaId: {} | Command Succesfully sent for {}.";
     public static final String COMMAND_ERROR_LOG = "[COMMAND] SagaId: {} | Error sending command for {}. | Error Message: {} | Message: {}";

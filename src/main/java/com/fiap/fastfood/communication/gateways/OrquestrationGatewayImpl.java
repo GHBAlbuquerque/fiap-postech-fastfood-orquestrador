@@ -15,18 +15,18 @@ public class OrquestrationGatewayImpl implements OrquestrationGateway {
     }
 
     @Override
-    public String createStepRecord(String stepName) {
+    public String createStepRecord(String stepId) {
         final var id = UUID.randomUUID().toString();
 
-        final var orm = new OrquestrationORM(id, stepName);
+        final var orm = new OrquestrationORM(id, stepId);
         final var record = repository.save(orm);
 
         return record.getId();
     }
 
     @Override
-    public String saveStepRecord(String id, String orderId, String stepName) {
-        final var orm = new OrquestrationORM(id, orderId, stepName);
+    public String saveStepRecord(String id, String stepId, String orderId) {
+        final var orm = new OrquestrationORM(id, stepId, orderId);
         final var record = repository.save(orm);
 
         return record.getId();

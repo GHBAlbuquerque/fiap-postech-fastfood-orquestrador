@@ -38,7 +38,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderCreation(CustomQueueMessage<CreateOrderCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Order Creation",
                 message.toString()
         );
@@ -46,18 +46,18 @@ public class OrderGatewayImpl implements OrderGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queueCreateOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Creation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Creation",
                     ex.getMessage(),
                     message.toString());
@@ -71,7 +71,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderPreparation(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Order Preparation",
                 message.toString()
         );
@@ -79,18 +79,18 @@ public class OrderGatewayImpl implements OrderGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queueCreateOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Preparation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Preparation",
                     ex.getMessage(),
                     message.toString());
@@ -105,7 +105,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderCompletion(CustomQueueMessage<String> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Order Completion",
                 message.toString()
         );
@@ -113,18 +113,18 @@ public class OrderGatewayImpl implements OrderGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queueCreateOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Completion");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Completion",
                     ex.getMessage(),
                     message.toString());
@@ -138,7 +138,7 @@ public class OrderGatewayImpl implements OrderGateway {
     public void commandOrderCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
-                message.getHeaders().getOrderId(),
+                message.getHeaders().getSagaId(),
                 "Order Cancellation",
                 message.toString()
         );
@@ -146,18 +146,18 @@ public class OrderGatewayImpl implements OrderGateway {
         try {
             messageSender.sendMessage(
                     message,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     queueCreateOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Cancellation");
 
         } catch (Exception ex) {
 
             logger.info(LoggingPattern.COMMAND_ERROR_LOG,
-                    message.getHeaders().getOrderId(),
+                    message.getHeaders().getSagaId(),
                     "Order Cancellation",
                     ex.getMessage(),
                     message.toString());

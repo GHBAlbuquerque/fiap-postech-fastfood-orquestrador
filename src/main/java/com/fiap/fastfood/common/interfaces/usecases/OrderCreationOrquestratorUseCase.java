@@ -12,6 +12,12 @@ public interface OrderCreationOrquestratorUseCase {
                      OrderGateway orderGateway,
                      OrquestrationGateway orquestrationGateway);
 
+    void createPayment(PaymentGateway paymentGateway,
+                       OrquestrationGateway orquestrationGateway);
+
+    void chargePayment(PaymentGateway paymentGateway,
+                       OrquestrationGateway orquestrationGateway);
+
     void prepareOrder(OrderGateway orderGateway,
                       OrquestrationGateway orquestrationGateway);
 
@@ -21,9 +27,4 @@ public interface OrderCreationOrquestratorUseCase {
     void notifyCustomer(CustomerGateway customerGateway,
                         OrquestrationGateway orquestrationGateway);
 
-    void createPayment(PaymentGateway paymentGateway,
-                       OrquestrationGateway orquestrationGateway);
-
-    void chargePayment(PaymentGateway paymentGateway,
-                       OrquestrationGateway orquestrationGateway);
 }

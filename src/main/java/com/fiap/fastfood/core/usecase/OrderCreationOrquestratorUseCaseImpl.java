@@ -38,7 +38,9 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
             );
 
             final var headers = new CustomMessageHeaders(id, null, MESSAGE_TYPE_COMMAND, MS_ORDER);
-            final var message = new CustomQueueMessage<CreateOrderCommand>(headers, null);
+            final var message = new CustomQueueMessage<CreateOrderCommand>(headers,
+                    new CreateOrderCommand(order.getCustomerId(), order.getItems())
+            );
 
             orderGateway.commandOrderCreation(message);
 
@@ -52,10 +54,32 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
             logger.error(
                     LoggingPattern.ORQUESTRATION_ERROR_LOG,
-                    null,
+                    "Id not created",
                     "createOrder"
             );
         }
+    }
+
+    @Override
+    public void createPayment(PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
+        logger.info(
+                LoggingPattern.ORQUESTRATION_STEP_LOG,
+                "createPayment",
+                order.toString()
+        );
+
+        try {
+
+
+        } catch (Exception ex) {
+
+
+        }
+    }
+
+    @Override
+    public void chargePayment(PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
+
     }
 
     @Override
@@ -70,16 +94,6 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
     @Override
     public void notifyCustomer(CustomerGateway customerGateway, OrquestrationGateway orquestrationGateway) {
-
-    }
-
-    @Override
-    public void createPayment(PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
-
-    }
-
-    @Override
-    public void chargePayment(PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
 
     }
 

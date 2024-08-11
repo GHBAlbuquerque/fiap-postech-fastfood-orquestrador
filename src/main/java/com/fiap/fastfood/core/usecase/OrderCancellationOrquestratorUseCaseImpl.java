@@ -8,7 +8,7 @@ import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestrato
 public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellationOrquestratorUseCase {
 
     @Override
-    public void cancelOrder(OrderGateway orderGateway, OrquestrationGateway orquestrationGateway) {
+    public void reversePayment(PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
 
     }
 
@@ -18,7 +18,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
     }
 
     @Override
-    public void reversePayment(PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
+    public void cancelOrder(OrderGateway orderGateway, OrquestrationGateway orquestrationGateway) {
 
     }
 }

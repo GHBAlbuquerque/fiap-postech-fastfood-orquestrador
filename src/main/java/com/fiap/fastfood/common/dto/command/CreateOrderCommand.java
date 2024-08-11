@@ -1,17 +1,17 @@
 package com.fiap.fastfood.common.dto.command;
 
-import com.fiap.fastfood.common.dto.request.OrderItemRequest;
+import com.fiap.fastfood.core.entity.Item;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Getter
 @Setter
-@Accessors(chain = true)
+@AllArgsConstructor
 public class CreateOrderCommand {
 
     private Long customerId;
-    private List<OrderItemRequest> items;
+    private List<Item> items;
 }
