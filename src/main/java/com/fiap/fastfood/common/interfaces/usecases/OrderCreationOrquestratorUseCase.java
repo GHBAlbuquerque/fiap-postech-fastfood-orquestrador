@@ -20,23 +20,23 @@ public interface OrderCreationOrquestratorUseCase {
                      OrderGateway orderGateway,
                      OrquestrationGateway orquestrationGateway);
 
-    void createPayment(CustomQueueMessage<CreateOrderResponse> message,
+    void createPayment(CustomQueueMessage<CreateOrderResponse> response,
                        PaymentGateway paymentGateway,
                        OrquestrationGateway orquestrationGateway);
 
-    void chargePayment(CustomQueueMessage<CreateOrderResponse> message,
+    void chargePayment(CustomQueueMessage<CreateOrderResponse> response,
                        PaymentGateway paymentGateway,
                        OrquestrationGateway orquestrationGateway);
 
-    void prepareOrder(CustomQueueMessage<CreateOrderResponse> message,
+    void prepareOrder(CustomQueueMessage<CreateOrderResponse> response,
                       OrderGateway orderGateway,
                       OrquestrationGateway orquestrationGateway);
 
-    void completeOrder(CustomQueueMessage<CreateOrderResponse> message,
+    void completeOrder(CustomQueueMessage<CreateOrderResponse> response,
                        OrderGateway orderGateway,
                        OrquestrationGateway orquestrationGateway);
 
-    void notifyCustomer(CustomQueueMessage<CreateOrderResponse> message,
+    void notifyCustomer(CustomQueueMessage<CreateOrderResponse> response,
                         CustomerGateway customerGateway,
                         OrquestrationGateway orquestrationGateway);
 

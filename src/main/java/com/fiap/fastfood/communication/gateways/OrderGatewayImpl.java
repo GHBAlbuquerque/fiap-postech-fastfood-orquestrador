@@ -1,6 +1,7 @@
 package com.fiap.fastfood.communication.gateways;
 
 import com.fiap.fastfood.common.dto.command.CreateOrderCommand;
+import com.fiap.fastfood.common.dto.command.OrderCommand;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
@@ -68,7 +69,7 @@ public class OrderGatewayImpl implements OrderGateway {
     }
 
     @Override
-    public void commandOrderPreparation(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void commandOrderPreparation(CustomQueueMessage<OrderCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
@@ -102,7 +103,7 @@ public class OrderGatewayImpl implements OrderGateway {
     }
 
     @Override
-    public void commandOrderCompletion(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void commandOrderCompletion(CustomQueueMessage<OrderCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
@@ -135,7 +136,7 @@ public class OrderGatewayImpl implements OrderGateway {
     }
 
     @Override
-    public void commandOrderCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
+    public void commandOrderCancellation(CustomQueueMessage<OrderCommand> message) throws OrderCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),

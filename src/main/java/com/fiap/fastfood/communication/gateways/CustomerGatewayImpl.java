@@ -1,5 +1,6 @@
 package com.fiap.fastfood.communication.gateways;
 
+import com.fiap.fastfood.common.dto.command.NotifyCustomerCommand;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
@@ -24,7 +25,7 @@ public class CustomerGatewayImpl implements CustomerGateway {
     private static final Logger logger = LogManager.getLogger(CustomerGatewayImpl.class);
 
     @Override
-    public void commandCustomerNotification(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void commandCustomerNotification(CustomQueueMessage<NotifyCustomerCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),

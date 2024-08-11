@@ -11,7 +11,7 @@ import lombok.*;
 public class CreateOrderResponse {
 
     private String orderId;
-    private String customerId;
+    private Long customerId;
     private String paymentId;
     private OrquestrationStepEnum executedStep;
     private Boolean stepSuccessful;

@@ -32,21 +32,21 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
     }
 
     @Override
-    public void reversePayment(CustomQueueMessage<CreateOrderResponse> message,
+    public void reversePayment(CustomQueueMessage<CreateOrderResponse> response,
                                PaymentGateway paymentGateway,
                                OrquestrationGateway orquestrationGateway) {
 
     }
 
     @Override
-    public void cancelPayment(CustomQueueMessage<CreateOrderResponse> message,
+    public void cancelPayment(CustomQueueMessage<CreateOrderResponse> response,
                               PaymentGateway paymentGateway,
                               OrquestrationGateway orquestrationGateway) {
 
     }
 
     @Override
-    public void cancelOrder(CustomQueueMessage<CreateOrderResponse> message,
+    public void cancelOrder(CustomQueueMessage<CreateOrderResponse> response,
                             OrderGateway orderGateway,
                             OrquestrationGateway orquestrationGateway) {
 

@@ -1,5 +1,6 @@
 package com.fiap.fastfood.communication.gateways;
 
+import com.fiap.fastfood.common.dto.command.PaymentCommand;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
@@ -34,7 +35,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     private static final Logger logger = LogManager.getLogger(PaymentGatewayImpl.class);
 
     @Override
-    public void commandPaymentCreation(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void commandPaymentCreation(CustomQueueMessage<PaymentCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
@@ -67,7 +68,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public void commandPaymentCharge(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void commandPaymentCharge(CustomQueueMessage<PaymentCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
@@ -100,7 +101,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public void commandPaymentReversal(CustomQueueMessage<String> message) throws OrderCancellationException {
+    public void commandPaymentReversal(CustomQueueMessage<PaymentCommand> message) throws OrderCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
@@ -134,7 +135,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public void commandPaymentCancellation(CustomQueueMessage<String> message) throws OrderCancellationException {
+    public void commandPaymentCancellation(CustomQueueMessage<PaymentCommand> message) throws OrderCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),

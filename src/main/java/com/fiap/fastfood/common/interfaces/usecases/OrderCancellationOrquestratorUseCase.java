@@ -14,15 +14,15 @@ public interface OrderCancellationOrquestratorUseCase {
                      PaymentGateway paymentGateway,
                      OrquestrationGateway orquestrationGateway) throws OrderCreationException;
 
-    void reversePayment(CustomQueueMessage<CreateOrderResponse> message,
+    void reversePayment(CustomQueueMessage<CreateOrderResponse> response,
                         PaymentGateway paymentGateway,
                         OrquestrationGateway orquestrationGateway);
 
-    void cancelPayment(CustomQueueMessage<CreateOrderResponse> message,
+    void cancelPayment(CustomQueueMessage<CreateOrderResponse> response,
                        PaymentGateway paymentGateway,
                        OrquestrationGateway orquestrationGateway);
 
-    void cancelOrder(CustomQueueMessage<CreateOrderResponse> message,
+    void cancelOrder(CustomQueueMessage<CreateOrderResponse> response,
                      OrderGateway orderGateway,
                      OrquestrationGateway orquestrationGateway);
 }
