@@ -8,8 +8,8 @@ public interface PaymentGateway {
 
     void commandPaymentCharge(CustomQueueMessage<String> message);
 
-    void commandPaymentCancellation(CustomQueueMessage<String> message);
-
     void commandPaymentReversal(CustomQueueMessage<String> message);
+
+    void commandPaymentCancellation(CustomQueueMessage<String> message);
 
 }

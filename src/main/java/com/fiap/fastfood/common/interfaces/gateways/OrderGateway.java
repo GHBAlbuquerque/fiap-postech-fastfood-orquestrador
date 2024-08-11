@@ -10,5 +10,5 @@ public interface OrderGateway {
 
     void commandOrderCompletion(CustomQueueMessage<String> message);
 
-    void commandOrderCancelation(CustomQueueMessage<String> message);
+    void commandOrderCancellation(CustomQueueMessage<String> message);
 }

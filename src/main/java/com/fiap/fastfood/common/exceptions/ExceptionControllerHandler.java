@@ -1,6 +1,7 @@
 package com.fiap.fastfood.common.exceptions;
 
-import com.fiap.fastfood.common.exceptions.custom.*;
+import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
+import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.exceptions.model.ExceptionDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
