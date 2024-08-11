@@ -1,12 +1,13 @@
 package com.fiap.fastfood.common.interfaces.gateways;
 
+import com.fiap.fastfood.common.dto.command.CreateOrderCommand;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
 import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 
 public interface OrderGateway {
 
-    void commandOrderCreation(CustomQueueMessage<String> message) throws OrderCreationException;
+    void commandOrderCreation(CustomQueueMessage<CreateOrderCommand> message) throws OrderCreationException;
 
     void commandOrderPreparation(CustomQueueMessage<String> message) throws OrderCreationException;
 

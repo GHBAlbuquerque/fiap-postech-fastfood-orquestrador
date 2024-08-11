@@ -4,6 +4,7 @@ import com.fiap.fastfood.common.builders.OrderBuilder;
 import com.fiap.fastfood.common.dto.request.CreateOrderRequest;
 import com.fiap.fastfood.common.exceptions.model.ExceptionDetails;
 import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
+import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,10 +24,12 @@ public class CreateOrderController {
 
     private final OrderCreationOrquestratorUseCase useCase;
     private final OrderGateway orderGateway;
+    private final OrquestrationGateway orquestrationGateway;
 
-    public CreateOrderController(OrderGateway orderGateway, OrderCreationOrquestratorUseCase orderUseCase) {
+    public CreateOrderController(OrderGateway orderGateway, OrderCreationOrquestratorUseCase orderUseCase, OrquestrationGateway orquestrationGateway) {
         this.useCase = orderUseCase;
         this.orderGateway = orderGateway;
+        this.orquestrationGateway = orquestrationGateway;
     }
 
     @ApiResponses(value = {
@@ -41,7 +44,8 @@ public class CreateOrderController {
 
         useCase.createOrder(
                 OrderBuilder.fromRequestToDomain(request),
-                orderGateway);
+                orderGateway,
+                orquestrationGateway);
 
         return ResponseEntity.status(HttpStatus.OK).body(request);
     }

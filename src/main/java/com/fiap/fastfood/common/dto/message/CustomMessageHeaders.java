@@ -14,5 +14,4 @@ public class CustomMessageHeaders {
     private String orderId;
     private String messageType;
     private String microsservice;
-    private String timestamp;
 }

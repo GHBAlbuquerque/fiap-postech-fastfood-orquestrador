@@ -1,5 +1,6 @@
 package com.fiap.fastfood.communication.gateways;
 
+import com.fiap.fastfood.common.dto.command.CreateOrderCommand;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
@@ -9,13 +10,15 @@ import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public class OrderGatewayImpl implements OrderGateway {
 
-    @Autowired
-    private MessageSender messageSender;
+    private final MessageSender messageSender;
+
+    public OrderGatewayImpl(MessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
 
     @Value("${aws.queue_comando_criar_pedido.url}")
     private String queueCreateOrder;
@@ -32,7 +35,7 @@ public class OrderGatewayImpl implements OrderGateway {
     private static final Logger logger = LogManager.getLogger(OrderGatewayImpl.class);
 
     @Override
-    public void commandOrderCreation(CustomQueueMessage<String> message) throws OrderCreationException {
+    public void commandOrderCreation(CustomQueueMessage<CreateOrderCommand> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getOrderId(),

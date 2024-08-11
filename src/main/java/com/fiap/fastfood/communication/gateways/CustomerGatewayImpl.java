@@ -8,13 +8,15 @@ import com.fiap.fastfood.common.interfaces.gateways.CustomerGateway;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public class CustomerGatewayImpl implements CustomerGateway {
 
-    @Autowired
-    private MessageSender messageSender;
+    private final MessageSender messageSender;
+
+    public CustomerGatewayImpl(MessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
 
     @Value("${aws.queue_comando_notificar_cliente.url}")
     private String queueCustomerNotification;

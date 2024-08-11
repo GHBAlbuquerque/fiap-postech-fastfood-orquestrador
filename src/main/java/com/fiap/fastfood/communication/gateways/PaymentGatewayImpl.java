@@ -9,13 +9,15 @@ import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public class PaymentGatewayImpl implements PaymentGateway {
 
-    @Autowired
-    private MessageSender messageSender;
+    private final MessageSender messageSender;
+
+    public PaymentGatewayImpl(MessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
 
     @Value("${aws.queue_comando_solicitar_pagamento.url}")
     private String queuePaymentCreation;
