@@ -2,6 +2,7 @@ package com.fiap.fastfood.communication.controllers;
 
 import com.fiap.fastfood.common.builders.OrderBuilder;
 import com.fiap.fastfood.common.dto.request.CreateOrderRequest;
+import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.exceptions.model.ExceptionDetails;
 import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
@@ -40,7 +41,7 @@ public class CreateOrderController {
     })
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<CreateOrderRequest> createOrder(
-            @Valid @RequestBody CreateOrderRequest request) {
+            @Valid @RequestBody CreateOrderRequest request) throws OrderCreationException {
 
         useCase.createOrder(
                 OrderBuilder.fromRequestToDomain(request),

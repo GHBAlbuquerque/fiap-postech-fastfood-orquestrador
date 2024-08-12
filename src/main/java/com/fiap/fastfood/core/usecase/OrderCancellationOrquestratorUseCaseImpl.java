@@ -5,7 +5,8 @@ import com.fiap.fastfood.common.dto.command.PaymentCommand;
 import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.dto.response.CreateOrderResponse;
-import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
+import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
+import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
 import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
@@ -26,7 +27,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
     public void orquestrate(CustomQueueMessage<CreateOrderResponse> message,
                             OrderGateway orderGateway,
                             PaymentGateway paymentGateway,
-                            OrquestrationGateway orquestrationGateway) throws OrderCreationException {
+                            OrquestrationGateway orquestrationGateway) throws OrderCancellationException {
 
         final var executedStep = message.getBody().getExecutedStep();
 
@@ -36,14 +37,14 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
             case CANCEL_PAYMENT:
                 cancelOrder(message, orderGateway, orquestrationGateway);
             default:
-                throw new OrderCreationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
+                throw new OrderCancellationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
         }
     }
 
     @Override
     public void reversePayment(CustomQueueMessage<CreateOrderResponse> response,
                                PaymentGateway paymentGateway,
-                               OrquestrationGateway orquestrationGateway) {
+                               OrquestrationGateway orquestrationGateway) throws OrderCancellationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -86,13 +87,15 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                     ex.getMessage(),
                     response
             );
+
+            throw new OrderCancellationException(ExceptionCodes.SAGA_07_PAYMENT_REVERSAL, ex.getMessage());
         }
     }
 
     @Override
     public void cancelPayment(CustomQueueMessage<CreateOrderResponse> response,
                               PaymentGateway paymentGateway,
-                              OrquestrationGateway orquestrationGateway) {
+                              OrquestrationGateway orquestrationGateway) throws OrderCancellationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -135,13 +138,15 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                     ex.getMessage(),
                     response
             );
+
+            throw new OrderCancellationException(ExceptionCodes.SAGA_08_PAYMENT_CANCELLATION, ex.getMessage());
         }
     }
 
     @Override
     public void cancelOrder(CustomQueueMessage<CreateOrderResponse> response,
                             OrderGateway orderGateway,
-                            OrquestrationGateway orquestrationGateway) {
+                            OrquestrationGateway orquestrationGateway) throws OrderCancellationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -184,6 +189,8 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                     ex.getMessage(),
                     response
             );
+
+            throw new OrderCancellationException(ExceptionCodes.SAGA_09_ORDER_CANCELLATION, ex.getMessage());
         }
     }
 

@@ -8,6 +8,7 @@ import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.dto.response.CreateOrderResponse;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
+import com.fiap.fastfood.common.exceptions.custom.OrderCancellationException;
 import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.interfaces.gateways.CustomerGateway;
 import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
@@ -41,7 +42,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                             OrderGateway orderGateway,
                             PaymentGateway paymentGateway,
                             CustomerGateway customerGateway,
-                            OrquestrationGateway orquestrationGateway) throws OrderCreationException {
+                            OrquestrationGateway orquestrationGateway) throws OrderCreationException, OrderCancellationException {
 
         final var executedStep = message.getBody().getExecutedStep();
 
@@ -109,7 +110,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
     public void createPayment(CustomQueueMessage<CreateOrderResponse> response,
                               PaymentGateway paymentGateway,
                               OrderGateway orderGateway,
-                              OrquestrationGateway orquestrationGateway) throws OrderCreationException {
+                              OrquestrationGateway orquestrationGateway) throws OrderCreationException, OrderCancellationException {
 
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
@@ -171,7 +172,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
     @Override
     public void chargePayment(CustomQueueMessage<CreateOrderResponse> response,
                               PaymentGateway paymentGateway,
-                              OrquestrationGateway orquestrationGateway) throws OrderCreationException {
+                              OrquestrationGateway orquestrationGateway) throws OrderCreationException, OrderCancellationException {
 
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
@@ -234,7 +235,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
     public void prepareOrder(CustomQueueMessage<CreateOrderResponse> response,
                              OrderGateway orderGateway,
                              PaymentGateway paymentGateway,
-                             OrquestrationGateway orquestrationGateway) throws OrderCreationException {
+                             OrquestrationGateway orquestrationGateway) throws OrderCreationException, OrderCancellationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -295,7 +296,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
     @Override
     public void completeOrder(CustomQueueMessage<CreateOrderResponse> response,
                               OrderGateway orderGateway,
-                              OrquestrationGateway orquestrationGateway) {
+                              OrquestrationGateway orquestrationGateway) throws OrderCreationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -338,14 +339,17 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     ex.getMessage(),
                     response
             );
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_04_ORDER_COMPLETION, ex.getMessage());
         }
+
     }
 
     @Override
     public void notifyCustomer(CustomQueueMessage<CreateOrderResponse> response,
                                CustomerGateway customerGateway,
                                OrquestrationGateway orquestrationGateway,
-                               OrquestrationStepEnum step) {
+                               OrquestrationStepEnum step) throws OrderCreationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -388,6 +392,8 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     ex.getMessage(),
                     response
             );
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_01_CUSTOMER_NOTIFICATION, ex.getMessage());
         }
     }
 
