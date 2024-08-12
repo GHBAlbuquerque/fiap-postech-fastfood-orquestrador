@@ -84,8 +84,8 @@ Faça o download ou clone este projeto e abra em uma IDE (preferencialmente Inte
 <br/>
 
 Antes de iniciar:
-1. Criar manualmente bucket s3 na conta com para guardar os states do terraform (utilizei o nome ‘terraform-state-backend-postech-new’)
-2. Criar manualmente repositórios ECR na conta com os nomes ‘fiap_postech_fastfood_cliente’, ‘fiap_postech_fastfood_produto’, ‘fiap_postech_fastfood_pedido’, ‘fiap_postech_fastfood_pagamento’ e ‘fiap_postech_fastfood_orquestrador’
+1. Crie manualmente bucket s3 na conta com para guardar os states do terraform (utilizei o nome ‘terraform-state-backend-postech-new’)
+2. Crie manualmente repositórios ECR na conta com os nomes ‘fiap_postech_fastfood_cliente’, ‘fiap_postech_fastfood_produto’, ‘fiap_postech_fastfood_pedido’, ‘fiap_postech_fastfood_pagamento’ e ‘fiap_postech_fastfood_orquestrador’
 3. Caso não esteja usando AWS Academy, é necessário criar também Policies e Roles para os serviços. Esta etapa não foi feita na entrega da Pós e foram usadas as Roles padrão do laboratório.
 
 Passo-a-passo:
@@ -123,33 +123,75 @@ Passo-a-passo:
 <br/>
 
 > Subindo a App de Cliente
-1. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
+1. Abra o projeto no **Repositório da App de Cliente**
+2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
     1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
-2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
+3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
     1. Corrija DB_HOST mudando o endpoint do RDS
     2. Corrija COGNITO_ID mudando o valor do ClientId do Cognito
-3. Suba a aplicação via CI/CD do repositório
-4. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
+4. Suba a aplicação via CI/CD do repositório
+5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 <br/>
 
 > Subindo a App de Produto
-1. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
+1. Abra o projeto no **Repositório da App de Produto**
+2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
     1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
-2. Suba a aplicação via CI/CD do repositório
-3. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
+3. Suba a aplicação via CI/CD do repositório
+4. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 
 <br/>
 
 > Subindo a App de Pedido
-1. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
+1. Abra o projeto no **Repositório da App de Pedido**
+2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
     1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
-2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
+3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
     1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer
     2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer
-3. Suba a aplicação via CI/CD do repositório
-4. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
+4. Suba a aplicação via CI/CD do repositório
+5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
+
+> Subindo a App de Pagamento
+------TBD-----
+
+[//]: # (1. Abra o projeto no **Repositório da App de Pagamento**)
+
+[//]: # (2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:)
+
+[//]: # (    1. Ajuste URI do repositório remoto ECR AWS &#40;accountid e region&#41;)
+
+[//]: # (3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:)
+
+[//]: # (    1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer)
+
+[//]: # (    2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer)
+
+[//]: # (4. Suba a aplicação via CI/CD do repositório)
+
+[//]: # (5. &#40;opcional&#41; Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.)
+
+
+> Subindo a App Orquestradora
+------TBD-----
+
+[//]: # (1. Abra o projeto no **Repositório da App Orquestradora**)
+
+[//]: # (2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:)
+
+[//]: # (    1. Ajuste URI do repositório remoto ECR AWS &#40;accountid e region&#41;)
+
+[//]: # (3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:)
+
+[//]: # (    1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer)
+
+[//]: # (    2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer)
+
+[//]: # (4. Suba a aplicação via CI/CD do repositório)
+
+[//]: # (5. &#40;opcional&#41; Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.)
 
 
 <br/>
