@@ -11,19 +11,19 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamoDBTable(tableName = "Orquestration")
-public class OrquestrationORM {
+public class OrquestrationRecordORM {
 
     private String id;
     private String stepId;
     private String orderId;
     private Date createdAt;
 
-    public OrquestrationORM(String id, String stepId) {
+    public OrquestrationRecordORM(String id, String stepId) {
         this.id = id;
         this.stepId = stepId;
     }
 
-    public OrquestrationORM(String id, String stepId, String orderId) {
+    public OrquestrationRecordORM(String id, String stepId, String orderId) {
         this.id = id;
         this.stepId = stepId;
         this.orderId = orderId;

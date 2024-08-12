@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Orquestration {
+public class OrquestrationRecord {
 
     private String id;
     private String orderId;
