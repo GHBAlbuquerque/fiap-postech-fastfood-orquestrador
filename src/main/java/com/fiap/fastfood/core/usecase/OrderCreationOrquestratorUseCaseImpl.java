@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 import static com.fiap.fastfood.common.exceptions.custom.ExceptionCodes.SAGA_12_ORQUESTRATION_STEP_NR;
 import static com.fiap.fastfood.common.logging.Constants.*;
+import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_STEP_INFORMER;
 import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.CHARGE_PAYMENT;
 import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.PREPARE_ORDER;
 
@@ -45,6 +46,10 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                             OrquestrationGateway orquestrationGateway) throws OrderCreationException, OrderCancellationException {
 
         final var executedStep = message.getBody().getExecutedStep();
+
+        logger.info(ORQUESTRATION_STEP_INFORMER,
+                message.getHeaders().getSagaId(),
+                executedStep);
 
         switch (executedStep) {
             case CREATE_ORDER:

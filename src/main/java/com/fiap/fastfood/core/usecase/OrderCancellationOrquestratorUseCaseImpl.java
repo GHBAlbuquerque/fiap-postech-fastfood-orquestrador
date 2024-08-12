@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import static com.fiap.fastfood.common.exceptions.custom.ExceptionCodes.SAGA_12_ORQUESTRATION_STEP_NR;
 import static com.fiap.fastfood.common.logging.Constants.*;
+import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_STEP_INFORMER;
 
 public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellationOrquestratorUseCase {
 
@@ -31,6 +32,10 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
 
         final var failedOrExecutedStep = message.getBody().getExecutedStep();
 
+        logger.info(ORQUESTRATION_STEP_INFORMER,
+                message.getHeaders().getSagaId(),
+                failedOrExecutedStep);
+
         switch (failedOrExecutedStep) {
             case PREPARE_ORDER:
                 reversePayment(message, paymentGateway, orquestrationGateway);
@@ -42,7 +47,9 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                 cancelOrder(message, orderGateway, orquestrationGateway);
                 break;
             default:
-                throw new OrderCancellationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
+                throw new OrderCancellationException(SAGA_12_ORQUESTRATION_STEP_NR,
+                        "Orquestration Step not recognized or does not have Compensating Transactions."
+                );
         }
     }
 
