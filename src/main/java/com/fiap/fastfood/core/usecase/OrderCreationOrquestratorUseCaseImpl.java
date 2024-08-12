@@ -78,7 +78,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
         logger.info(
                 LoggingPattern.ORQUESTRATION_INIT_LOG,
                 OrquestrationStepEnum.CREATE_ORDER.name(),
-                order.toString()
+                order
         );
 
         try {
