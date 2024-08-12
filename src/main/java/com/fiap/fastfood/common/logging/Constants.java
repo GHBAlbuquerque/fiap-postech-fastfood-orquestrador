@@ -7,4 +7,6 @@ public class Constants {
     public static final String MS_ORDER = "ms_pedido";
     public static final String MS_CUSTOMER = "ms_cliente";
     public static final String MS_PAYMENT = "ms_pagamento";
+
+    public static final Integer MAX_RECEIVE_COUNT = 5;
 }

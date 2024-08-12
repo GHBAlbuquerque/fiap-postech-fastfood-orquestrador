@@ -4,10 +4,7 @@ import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.dto.response.CreateOrderResponse;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
-import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
-import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
-import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
-import com.fiap.fastfood.common.interfaces.gateways.ResponseGateway;
+import com.fiap.fastfood.common.interfaces.gateways.*;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
 import com.fiap.fastfood.common.logging.LoggingPattern;
@@ -21,15 +18,17 @@ public class ResponseGatewayImpl implements ResponseGateway {
     private final OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase;
     private final OrderGateway orderGateway;
     private final PaymentGateway paymentGateway;
+    private final CustomerGateway customerGateway;
     private final OrquestrationGateway orquestrationGateway;
 
     private static final Logger logger = LogManager.getLogger(ResponseGatewayImpl.class);
 
-    public ResponseGatewayImpl(OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase, OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase, OrderGateway orderGateway, PaymentGateway paymentGateway, OrquestrationGateway orquestrationGateway) {
+    public ResponseGatewayImpl(OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase, OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase, OrderGateway orderGateway, PaymentGateway paymentGateway, CustomerGateway customerGateway, OrquestrationGateway orquestrationGateway) {
         this.orderCreationOrquestratorUseCase = orderCreationOrquestratorUseCase;
         this.orderCancellationOrquestratorUseCase = orderCancellationOrquestratorUseCase;
         this.orderGateway = orderGateway;
         this.paymentGateway = paymentGateway;
+        this.customerGateway = customerGateway;
         this.orquestrationGateway = orquestrationGateway;
     }
 
@@ -49,6 +48,7 @@ public class ResponseGatewayImpl implements ResponseGateway {
                 orderCreationOrquestratorUseCase.orquestrate(message,
                         orderGateway,
                         paymentGateway,
+                        customerGateway,
                         orquestrationGateway);
             else
                 orderCancellationOrquestratorUseCase.orquestrate(message,

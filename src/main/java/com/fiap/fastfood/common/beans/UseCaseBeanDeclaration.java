@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class UseCaseBeanDeclaration {
 
     @Bean
-    public OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase() {
-        return new OrderCreationOrquestratorUseCaseImpl();
+    public OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase(
+            OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase
+    ) {
+        return new OrderCreationOrquestratorUseCaseImpl(orderCancellationOrquestratorUseCase);
     }
 
     @Bean

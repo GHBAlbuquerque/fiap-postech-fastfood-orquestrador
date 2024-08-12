@@ -7,11 +7,13 @@ import com.fiap.fastfood.common.dto.command.PaymentCommand;
 import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.dto.response.CreateOrderResponse;
+import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.OrderCreationException;
 import com.fiap.fastfood.common.interfaces.gateways.CustomerGateway;
 import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
+import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import com.fiap.fastfood.core.entity.Order;
@@ -21,32 +23,39 @@ import org.apache.logging.log4j.Logger;
 
 import static com.fiap.fastfood.common.exceptions.custom.ExceptionCodes.SAGA_12_ORQUESTRATION_STEP_NR;
 import static com.fiap.fastfood.common.logging.Constants.*;
+import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.CHARGE_PAYMENT;
+import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.PREPARE_ORDER;
 
 public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrquestratorUseCase {
 
-    //TODO: criar contagem de recebimentos
-    //TODO: criar chamada de métodos compensatórios
-    //TODO: criar chamada para notificacao cliente
+    private final OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase;
 
     private static final Logger logger = LogManager.getLogger(OrderCreationOrquestratorUseCaseImpl.class);
+
+    public OrderCreationOrquestratorUseCaseImpl(OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase) {
+        this.orderCancellationOrquestratorUseCase = orderCancellationOrquestratorUseCase;
+    }
 
     @Override
     public void orquestrate(CustomQueueMessage<CreateOrderResponse> message,
                             OrderGateway orderGateway,
                             PaymentGateway paymentGateway,
+                            CustomerGateway customerGateway,
                             OrquestrationGateway orquestrationGateway) throws OrderCreationException {
 
         final var executedStep = message.getBody().getExecutedStep();
 
         switch (executedStep) {
             case CREATE_ORDER:
-                createPayment(message, paymentGateway, orquestrationGateway);
+                createPayment(message, paymentGateway, orderGateway, orquestrationGateway);
             case CREATE_PAYMENT:
                 chargePayment(message, paymentGateway, orquestrationGateway);
+                notifyCustomer(message, customerGateway, orquestrationGateway, CHARGE_PAYMENT);
             case CHARGE_PAYMENT:
-                prepareOrder(message, orderGateway, orquestrationGateway);
+                prepareOrder(message, orderGateway, paymentGateway, orquestrationGateway);
             case PREPARE_ORDER:
                 completeOrder(message, orderGateway, orquestrationGateway);
+                notifyCustomer(message, customerGateway, orquestrationGateway, PREPARE_ORDER);
             default:
                 throw new OrderCreationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
         }
@@ -55,7 +64,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
     @Override
     public void createOrder(Order order,
                             OrderGateway orderGateway,
-                            OrquestrationGateway orquestrationGateway) {
+                            OrquestrationGateway orquestrationGateway) throws OrderCreationException {
         logger.info(
                 LoggingPattern.ORQUESTRATION_INIT_LOG,
                 OrquestrationStepEnum.CREATE_ORDER.name(),
@@ -91,13 +100,16 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     ex.getMessage(),
                     order
             );
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_02_ORDER_CREATION, ex.getMessage());
         }
     }
 
     @Override
     public void createPayment(CustomQueueMessage<CreateOrderResponse> response,
                               PaymentGateway paymentGateway,
-                              OrquestrationGateway orquestrationGateway) {
+                              OrderGateway orderGateway,
+                              OrquestrationGateway orquestrationGateway) throws OrderCreationException {
 
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
@@ -140,13 +152,27 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     ex.getMessage(),
                     response
             );
+
+            var receiveCount = response.getHeaders().getReceiveCount();
+            receiveCount++;
+
+            if (MAX_RECEIVE_COUNT.equals(receiveCount)) { //TODO: ver se mudou o valor dentro do objeto
+                orderCancellationOrquestratorUseCase.cancelOrder(response,
+                        orderGateway,
+                        orquestrationGateway);
+                return;
+            }
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_05_PAYMENT_CREATION, ex.getMessage());
+
         }
     }
 
     @Override
     public void chargePayment(CustomQueueMessage<CreateOrderResponse> response,
                               PaymentGateway paymentGateway,
-                              OrquestrationGateway orquestrationGateway) {
+                              OrquestrationGateway orquestrationGateway) throws OrderCreationException {
+
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -155,14 +181,14 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
         logger.info(
                 LoggingPattern.ORQUESTRATION_STEP_LOG,
                 id,
-                OrquestrationStepEnum.CHARGE_PAYMENT.name()
+                CHARGE_PAYMENT.name()
         );
 
         try {
 
             orquestrationGateway.saveStepRecord(
                     id,
-                    OrquestrationStepEnum.CHARGE_PAYMENT.name(),
+                    CHARGE_PAYMENT.name(),
                     orderId
             );
 
@@ -177,7 +203,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,
                     id,
-                    OrquestrationStepEnum.CHARGE_PAYMENT.name()
+                    CHARGE_PAYMENT.name()
             );
 
         } catch (Exception ex) {
@@ -185,17 +211,30 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
             logger.error(
                     LoggingPattern.ORQUESTRATION_ERROR_LOG,
                     id,
-                    OrquestrationStepEnum.CHARGE_PAYMENT.name(),
+                    CHARGE_PAYMENT.name(),
                     ex.getMessage(),
                     response
             );
+
+            var receiveCount = response.getHeaders().getReceiveCount();
+            receiveCount++;
+
+            if (MAX_RECEIVE_COUNT.equals(receiveCount)) {
+                orderCancellationOrquestratorUseCase.cancelPayment(response,
+                        paymentGateway,
+                        orquestrationGateway);
+                return;
+            }
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_06_PAYMENT_CHARGE, ex.getMessage());
         }
     }
 
     @Override
     public void prepareOrder(CustomQueueMessage<CreateOrderResponse> response,
                              OrderGateway orderGateway,
-                             OrquestrationGateway orquestrationGateway) {
+                             PaymentGateway paymentGateway,
+                             OrquestrationGateway orquestrationGateway) throws OrderCreationException {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -204,14 +243,14 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
         logger.info(
                 LoggingPattern.ORQUESTRATION_STEP_LOG,
                 id,
-                OrquestrationStepEnum.PREPARE_ORDER.name()
+                PREPARE_ORDER.name()
         );
 
         try {
 
             orquestrationGateway.saveStepRecord(
                     id,
-                    OrquestrationStepEnum.PREPARE_ORDER.name(),
+                    PREPARE_ORDER.name(),
                     orderId
             );
 
@@ -226,7 +265,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,
                     id,
-                    OrquestrationStepEnum.PREPARE_ORDER.name()
+                    PREPARE_ORDER.name()
             );
 
         } catch (Exception ex) {
@@ -234,10 +273,22 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
             logger.error(
                     LoggingPattern.ORQUESTRATION_ERROR_LOG,
                     id,
-                    OrquestrationStepEnum.PREPARE_ORDER.name(),
+                    PREPARE_ORDER.name(),
                     ex.getMessage(),
                     response
             );
+
+            var receiveCount = response.getHeaders().getReceiveCount();
+            receiveCount++;
+
+            if (MAX_RECEIVE_COUNT.equals(receiveCount)) {
+                orderCancellationOrquestratorUseCase.reversePayment(response,
+                        paymentGateway,
+                        orquestrationGateway);
+                return;
+            }
+
+            throw new OrderCreationException(ExceptionCodes.SAGA_03_ORDER_PREPARATION, ex.getMessage());
         }
     }
 
@@ -293,7 +344,8 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
     @Override
     public void notifyCustomer(CustomQueueMessage<CreateOrderResponse> response,
                                CustomerGateway customerGateway,
-                               OrquestrationGateway orquestrationGateway) {
+                               OrquestrationGateway orquestrationGateway,
+                               OrquestrationStepEnum step) {
         final var id = response.getHeaders().getSagaId();
         final var orderId = response.getHeaders().getOrderId();
         final var customerId = response.getBody().getCustomerId();
@@ -316,7 +368,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
             final var headers = new CustomMessageHeaders(id, orderId, MESSAGE_TYPE_COMMAND, MS_CUSTOMER);
             final var message = new CustomQueueMessage<>(
                     headers,
-                    new NotifyCustomerCommand(orderId, customerId, paymentId)
+                    new NotifyCustomerCommand(orderId, customerId, paymentId, step)
             );
 
             customerGateway.commandCustomerNotification(message);
