@@ -49,14 +49,18 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
         switch (executedStep) {
             case CREATE_ORDER:
                 createPayment(message, paymentGateway, orderGateway, orquestrationGateway);
+                break;
             case CREATE_PAYMENT:
                 chargePayment(message, paymentGateway, orquestrationGateway);
                 notifyCustomer(message, customerGateway, orquestrationGateway, CHARGE_PAYMENT);
+                break;
             case CHARGE_PAYMENT:
                 prepareOrder(message, orderGateway, paymentGateway, orquestrationGateway);
+                break;
             case PREPARE_ORDER:
                 completeOrder(message, orderGateway, orquestrationGateway);
                 notifyCustomer(message, customerGateway, orquestrationGateway, PREPARE_ORDER);
+                break;
             default:
                 throw new OrderCreationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
         }

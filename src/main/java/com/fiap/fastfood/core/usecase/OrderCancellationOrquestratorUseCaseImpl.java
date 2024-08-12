@@ -29,13 +29,18 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                             PaymentGateway paymentGateway,
                             OrquestrationGateway orquestrationGateway) throws OrderCancellationException {
 
-        final var executedStep = message.getBody().getExecutedStep();
+        final var failedOrExecutedStep = message.getBody().getExecutedStep();
 
-        switch (executedStep) {
-            case REVERSE_PAYMENT:
+        switch (failedOrExecutedStep) {
+            case PREPARE_ORDER:
+                reversePayment(message, paymentGateway, orquestrationGateway);
+                break;
+            case CHARGE_PAYMENT, REVERSE_PAYMENT:
                 cancelPayment(message, paymentGateway, orquestrationGateway);
-            case CANCEL_PAYMENT:
+                break;
+            case CREATE_PAYMENT, CANCEL_PAYMENT:
                 cancelOrder(message, orderGateway, orquestrationGateway);
+                break;
             default:
                 throw new OrderCancellationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
         }
