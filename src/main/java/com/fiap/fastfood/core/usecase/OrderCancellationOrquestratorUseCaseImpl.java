@@ -70,7 +70,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     OrquestrationStepEnum.REVERSE_PAYMENT.name(),
                     orderId
@@ -121,7 +121,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     OrquestrationStepEnum.CANCEL_PAYMENT.name(),
                     orderId
@@ -172,7 +172,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     OrquestrationStepEnum.CANCEL_ORDER.name(),
                     orderId

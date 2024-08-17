@@ -9,20 +9,23 @@ import com.fiap.fastfood.common.exceptions.custom.MessageCreationException;
 import com.fiap.fastfood.common.interfaces.external.MessageSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class MessageSenderimpl implements MessageSender {
 
-    @Autowired
-    private AmazonSQS client;
+    private final AmazonSQS client;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     private static final Logger logger = LogManager.getLogger(MessageSenderimpl.class);
 
+    public MessageSenderimpl(AmazonSQS client, ObjectMapper objectMapper) {
+        this.client = client;
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public SendMessageResult sendMessage(final Object object,
@@ -35,18 +38,20 @@ public class MessageSenderimpl implements MessageSender {
 
     @Override
     public SendMessageRequest createSendMessageRequest(final Object object,
-                                                       final String id,
+                                                       final String sagaId,
                                                        final String queueUrl) throws MessageCreationException {
         try {
             return new SendMessageRequest()
                     .withQueueUrl(queueUrl)
                     .withMessageBody(objectMapper.writeValueAsString(object))
-                    .withMessageGroupId(id);
-        } catch (Throwable ex) {
+                    .withMessageGroupId(sagaId)
+                    .withMessageDeduplicationId(UUID.randomUUID().toString());
+
+        } catch (Exception ex) {
             logger.error(
                     "Could not create message for queue: {}, groupid: {}. Exception: {}",
                     queueUrl,
-                    id,
+                    sagaId,
                     ex.getMessage()
             );
 

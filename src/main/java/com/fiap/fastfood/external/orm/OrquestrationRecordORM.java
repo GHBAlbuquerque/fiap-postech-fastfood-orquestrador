@@ -13,28 +13,27 @@ import java.util.Date;
 @DynamoDBTable(tableName = "Orquestration")
 public class OrquestrationRecordORM {
 
-    private String id;
+    private String sagaId;
     private String stepId;
     private String orderId;
     private Date createdAt;
 
     public OrquestrationRecordORM(String id, String stepId) {
-        this.id = id;
+        this.sagaId = id;
         this.stepId = stepId;
     }
 
     public OrquestrationRecordORM(String id, String stepId, String orderId) {
-        this.id = id;
+        this.sagaId = id;
         this.stepId = stepId;
         this.orderId = orderId;
     }
 
     @DynamoDBHashKey
-    public String getId() {
-        return id;
+    public String getSagaId() {
+        return sagaId;
     }
 
-    //TODO: descobrir se funciona como range key mesmo anotado assim
     @DynamoDBAttribute
     public String getStepId() {
         return stepId;

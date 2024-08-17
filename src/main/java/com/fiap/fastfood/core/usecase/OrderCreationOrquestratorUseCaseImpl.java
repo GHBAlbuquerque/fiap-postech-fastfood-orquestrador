@@ -133,7 +133,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     OrquestrationStepEnum.CREATE_PAYMENT.name(),
                     orderId
@@ -196,7 +196,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     CHARGE_PAYMENT.name(),
                     orderId
@@ -258,7 +258,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     PREPARE_ORDER.name(),
                     orderId
@@ -319,7 +319,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     OrquestrationStepEnum.COMPLETE_ORDER.name(),
                     orderId
@@ -372,7 +372,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
 
         try {
 
-            orquestrationGateway.saveStepRecord(
+            orquestrationGateway.updateStepRecord(
                     id,
                     OrquestrationStepEnum.NOTIFY_CUSTOMER.name(),
                     orderId
