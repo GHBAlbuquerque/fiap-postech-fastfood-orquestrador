@@ -32,7 +32,7 @@ public class ResponseGatewayImpl implements ResponseGateway {
         this.orquestrationGateway = orquestrationGateway;
     }
 
-    @SqsListener(queueNames = "${queue_resposta_criar_pedido}", maxConcurrentMessages = "1")
+    @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url}", maxConcurrentMessages = "1")
     public void listenToCreateOrderResponse(CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
         logger.info(
                 message.getHeaders().getSagaId(),
