@@ -11,4 +11,5 @@ public class Constants {
     public static final String MS_SAGA = "ms_orquestrador";
 
     public static final Integer MAX_RECEIVE_COUNT = 5;
+    public static final String HEADER_RECEIVE_COUNT = "Sqs_Msa_ApproximateReceiveCount";
 }

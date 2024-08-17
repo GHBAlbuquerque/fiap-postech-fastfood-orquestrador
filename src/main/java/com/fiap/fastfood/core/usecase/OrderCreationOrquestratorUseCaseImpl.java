@@ -17,6 +17,7 @@ import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
 import com.fiap.fastfood.common.logging.LoggingPattern;
+import com.fiap.fastfood.common.logging.TransactionInformationStorage;
 import com.fiap.fastfood.core.entity.Order;
 import com.fiap.fastfood.core.entity.OrquestrationStepEnum;
 import org.apache.logging.log4j.LogManager;
@@ -163,10 +164,9 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     response
             );
 
-            var receiveCount = response.getHeaders().getReceiveCount();
-            receiveCount++;
+            var receiveCount = Integer.valueOf(TransactionInformationStorage.getReceiveCount());
 
-            if (MAX_RECEIVE_COUNT.equals(receiveCount)) { //TODO: ver se mudou o valor dentro do objeto
+            if (MAX_RECEIVE_COUNT.equals(receiveCount)) {
                 orderCancellationOrquestratorUseCase.cancelOrder(response,
                         orderGateway,
                         orquestrationGateway);
@@ -226,8 +226,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     response
             );
 
-            var receiveCount = response.getHeaders().getReceiveCount();
-            receiveCount++;
+            var receiveCount = Integer.valueOf(TransactionInformationStorage.getReceiveCount());
 
             if (MAX_RECEIVE_COUNT.equals(receiveCount)) {
                 orderCancellationOrquestratorUseCase.cancelPayment(response,
@@ -288,8 +287,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     response
             );
 
-            var receiveCount = response.getHeaders().getReceiveCount();
-            receiveCount++;
+            var receiveCount = Integer.valueOf(TransactionInformationStorage.getReceiveCount());
 
             if (MAX_RECEIVE_COUNT.equals(receiveCount)) {
                 orderCancellationOrquestratorUseCase.reversePayment(response,

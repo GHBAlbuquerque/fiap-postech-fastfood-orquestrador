@@ -26,7 +26,7 @@ spec:
               memory: "1Gi"
           env:
             - name: ACCOUNT_ID
-              value: "731362576078"
+              value: "673847524989"
           ports:
             - containerPort: 80
               protocol: TCP

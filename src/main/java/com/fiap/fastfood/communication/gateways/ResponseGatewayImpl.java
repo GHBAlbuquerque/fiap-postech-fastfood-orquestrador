@@ -8,9 +8,13 @@ import com.fiap.fastfood.common.interfaces.gateways.*;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
 import com.fiap.fastfood.common.logging.LoggingPattern;
+import com.fiap.fastfood.common.logging.TransactionInformationStorage;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.messaging.MessageHeaders;
+
+import static com.fiap.fastfood.common.logging.Constants.HEADER_RECEIVE_COUNT;
 
 public class ResponseGatewayImpl implements ResponseGateway {
 
@@ -32,13 +36,15 @@ public class ResponseGatewayImpl implements ResponseGateway {
         this.orquestrationGateway = orquestrationGateway;
     }
 
-    @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url}", maxConcurrentMessages = "1")
-    public void listenToCreateOrderResponse(CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
+    @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url}", maxConcurrentMessages = "1", maxMessagesPerPoll="1")
+    public void listenToCreateOrderResponse(MessageHeaders headers, CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.RESPONSE_INIT_LOG,
                 message.getHeaders().getSagaId(),
                 message.getHeaders().getMicrosservice()
         );
+
+        TransactionInformationStorage.putReceiveCount(headers.get(HEADER_RECEIVE_COUNT, String.class));
 
         try {
 
