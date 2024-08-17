@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.messaging.MessageHeaders;
 
 import static com.fiap.fastfood.common.logging.Constants.HEADER_RECEIVE_COUNT;
+import static io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode.ON_SUCCESS;
 
 public class ResponseGatewayImpl implements ResponseGateway {
 
@@ -37,7 +38,7 @@ public class ResponseGatewayImpl implements ResponseGateway {
     }
 
     @Override
-    @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url=}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1")
+    @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1", acknowledgementMode = ON_SUCCESS)
     public void listenToCreateOrderResponse(MessageHeaders headers, CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
         logger.info(
                 LoggingPattern.RESPONSE_INIT_LOG,
