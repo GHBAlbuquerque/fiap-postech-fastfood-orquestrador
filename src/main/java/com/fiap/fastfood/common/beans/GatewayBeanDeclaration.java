@@ -2,14 +2,10 @@ package com.fiap.fastfood.common.beans;
 
 import com.fiap.fastfood.common.interfaces.datasources.OrquestrationRepository;
 import com.fiap.fastfood.common.interfaces.external.MessageSender;
-import com.fiap.fastfood.common.interfaces.gateways.CustomerGateway;
-import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
-import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
-import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
-import com.fiap.fastfood.communication.gateways.CustomerGatewayImpl;
-import com.fiap.fastfood.communication.gateways.OrderGatewayImpl;
-import com.fiap.fastfood.communication.gateways.OrquestrationGatewayImpl;
-import com.fiap.fastfood.communication.gateways.PaymentGatewayImpl;
+import com.fiap.fastfood.common.interfaces.gateways.*;
+import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
+import com.fiap.fastfood.common.interfaces.usecases.OrderCreationOrquestratorUseCase;
+import com.fiap.fastfood.communication.gateways.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,4 +32,8 @@ public class GatewayBeanDeclaration {
         return new OrquestrationGatewayImpl(orquestrationRepository);
     }
 
+    @Bean
+    public ResponseGateway responseGateway(OrderCreationOrquestratorUseCase orderCreationOrquestratorUseCase, OrderCancellationOrquestratorUseCase orderCancellationOrquestratorUseCase, OrderGateway orderGateway, PaymentGateway paymentGateway, CustomerGateway customerGateway, OrquestrationGateway orquestrationGateway) {
+        return new ResponseGatewayImpl(orderCreationOrquestratorUseCase, orderCancellationOrquestratorUseCase, orderGateway, paymentGateway, customerGateway, orquestrationGateway);
+    }
 }
