@@ -84,7 +84,7 @@ Faça o download ou clone este projeto e abra em uma IDE (preferencialmente Inte
 <br/>
 
 Antes de iniciar:
-1. Crie manualmente bucket s3 na conta com para guardar os states do terraform (utilizei o nome ‘terraform-state-backend-postech-new’)
+1. Crie manualmente bucket s3 na conta com para guardar os states do terraform (utilizei o nome ‘terraform-state-backend-postech’)
 2. Crie manualmente repositórios ECR na conta com os nomes ‘fiap_postech_fastfood_cliente’, ‘fiap_postech_fastfood_produto’, ‘fiap_postech_fastfood_pedido’, ‘fiap_postech_fastfood_pagamento’ e ‘fiap_postech_fastfood_orquestrador’
 3. Caso não esteja usando AWS Academy, é necessário criar também Policies e Roles para os serviços. Esta etapa não foi feita na entrega da Pós e foram usadas as Roles padrão do laboratório.
 
@@ -116,6 +116,14 @@ Passo-a-passo:
 
 > Subindo o Banco de Dados RDS
 1. Ajuste o bucket para armazenamento de estado **Repositório da Base de Dados RDS**
+    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
+3. Suba infraestrutura via CICD do repositório
+
+<br/>
+
+> Subindo as filas de mensageria (SQS)
+1. Ajuste o bucket para armazenamento de estado **Repositório de Mensageria**
     1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba infraestrutura via CICD do repositório
