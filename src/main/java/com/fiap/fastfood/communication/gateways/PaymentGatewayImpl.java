@@ -140,7 +140,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
                 "Payment Cancellation",
-                message.toString()
+                message
         );
 
         try {

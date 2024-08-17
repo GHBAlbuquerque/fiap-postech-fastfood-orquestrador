@@ -35,8 +35,8 @@ public class ResponseGatewayImpl implements ResponseGateway {
     @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url}", maxConcurrentMessages = "1")
     public void listenToCreateOrderResponse(CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
         logger.info(
-                message.getHeaders().getSagaId(),
                 LoggingPattern.RESPONSE_INIT_LOG,
+                message.getHeaders().getSagaId(),
                 message.getHeaders().getMicrosservice()
         );
 
