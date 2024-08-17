@@ -21,7 +21,7 @@ public class OrquestrationGatewayImpl implements OrquestrationGateway {
         final var orm = new OrquestrationRecordORM(id, stepId);
         final var record = repository.save(orm);
 
-        return record.getId();
+        return record.getSagaId();
     }
 
     @Override
@@ -29,6 +29,6 @@ public class OrquestrationGatewayImpl implements OrquestrationGateway {
         final var orm = new OrquestrationRecordORM(id, stepId, orderId);
         final var record = repository.save(orm);
 
-        return record.getId();
+        return record.getSagaId();
     }
 }
