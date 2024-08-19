@@ -81,7 +81,7 @@ public class OrderGatewayImpl implements OrderGateway {
             messageSender.sendMessage(
                     message,
                     message.getHeaders().getSagaId(),
-                    queueCreateOrder
+                    queuePrepareOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
@@ -115,7 +115,7 @@ public class OrderGatewayImpl implements OrderGateway {
             messageSender.sendMessage(
                     message,
                     message.getHeaders().getSagaId(),
-                    queueCreateOrder
+                    queueCompleteOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
@@ -148,7 +148,7 @@ public class OrderGatewayImpl implements OrderGateway {
             messageSender.sendMessage(
                     message,
                     message.getHeaders().getSagaId(),
-                    queueCreateOrder
+                    queueCancelOrder
             );
 
             logger.info(LoggingPattern.COMMAND_END_LOG,
