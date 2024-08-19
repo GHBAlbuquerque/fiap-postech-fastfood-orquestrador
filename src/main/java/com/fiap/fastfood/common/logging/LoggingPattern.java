@@ -16,4 +16,6 @@ public class LoggingPattern {
     public static final String ORQUESTRATION_END_LOG = "[ORQUESTRATION] SagaId: {} | Ended orquestration for {}";
     public static final String ORQUESTRATION_ERROR_LOG = "[ORQUESTRATION] SagaId: {} | Error orquestrating {} | Error Message: {} | Message: {}";
 
+    public static final String ORQUESTRATION_NO_NEXT_TRANSACTION = "[ORQUESTRATION] SagaId: {} | Step {} does not have a Next Transaction.";
+    public static final String ORQUESTRATION_NO_COMPENSATING_TRANSACTION = "[ORQUESTRATION] SagaId: {} | Step {} does not have Compensating Transactions.";
 }

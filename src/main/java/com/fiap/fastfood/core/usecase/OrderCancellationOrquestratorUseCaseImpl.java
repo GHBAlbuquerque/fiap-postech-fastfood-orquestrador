@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import static com.fiap.fastfood.common.exceptions.custom.ExceptionCodes.SAGA_12_ORQUESTRATION_STEP_NR;
 import static com.fiap.fastfood.common.logging.Constants.*;
+import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_NO_COMPENSATING_TRANSACTION;
 import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_STEP_INFORMER;
 
 public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellationOrquestratorUseCase {
@@ -30,10 +31,11 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                             PaymentGateway paymentGateway,
                             OrquestrationGateway orquestrationGateway) throws OrderCancellationException {
 
+        final var sagaId = message.getHeaders().getSagaId();
         final var failedOrExecutedStep = message.getBody().getExecutedStep();
 
         logger.info(ORQUESTRATION_STEP_INFORMER,
-                message.getHeaders().getSagaId(),
+                sagaId,
                 failedOrExecutedStep);
 
         switch (failedOrExecutedStep) {
@@ -46,11 +48,12 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
             case CREATE_PAYMENT, CANCEL_PAYMENT:
                 cancelOrder(message, orderGateway, orquestrationGateway);
                 break;
-            case NOTIFY_CUSTOMER:
+            case CREATE_ORDER, COMPLETE_ORDER, NOTIFY_CUSTOMER, CANCEL_ORDER:
+                logger.info(ORQUESTRATION_NO_COMPENSATING_TRANSACTION, sagaId, failedOrExecutedStep);
                 break;
             default:
                 throw new OrderCancellationException(SAGA_12_ORQUESTRATION_STEP_NR,
-                        "Orquestration Step not recognized or does not have Compensating Transactions."
+                        "Orquestration Step not recognized."
                 );
         }
     }

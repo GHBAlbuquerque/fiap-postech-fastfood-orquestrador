@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 import static com.fiap.fastfood.common.exceptions.custom.ExceptionCodes.SAGA_12_ORQUESTRATION_STEP_NR;
 import static com.fiap.fastfood.common.logging.Constants.*;
+import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_NO_NEXT_TRANSACTION;
 import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_STEP_INFORMER;
 import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.CHARGE_PAYMENT;
 import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.PREPARE_ORDER;
@@ -46,6 +47,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                             CustomerGateway customerGateway,
                             OrquestrationGateway orquestrationGateway) throws OrderCreationException, OrderCancellationException {
 
+        final var sagaId = message.getHeaders().getSagaId();
         final var executedStep = message.getBody().getExecutedStep();
 
         logger.info(ORQUESTRATION_STEP_INFORMER,
@@ -67,7 +69,8 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                 completeOrder(message, orderGateway, orquestrationGateway);
                 notifyCustomer(message, customerGateway, orquestrationGateway, PREPARE_ORDER);
                 break;
-            case NOTIFY_CUSTOMER:
+            case NOTIFY_CUSTOMER, COMPLETE_ORDER:
+                logger.info(ORQUESTRATION_NO_NEXT_TRANSACTION, sagaId, executedStep);
                 break;
             default:
                 throw new OrderCreationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
@@ -210,7 +213,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     new PaymentCommand(orderId, customerId, paymentId)
             );
 
-            paymentGateway.commandPaymentCreation(message);
+            paymentGateway.commandPaymentCharge(message);
 
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,
@@ -331,7 +334,7 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                     new OrderCommand(orderId, customerId, paymentId)
             );
 
-            orderGateway.commandOrderPreparation(message);
+            orderGateway.commandOrderCompletion(message);
 
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,

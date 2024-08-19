@@ -40,8 +40,6 @@ public class ResponseGatewayImpl implements ResponseGateway {
     @Override
     @SqsListener(queueNames = "${aws.queue_resposta_criar_pedido.url}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1", acknowledgementMode = ON_SUCCESS)
     public void listenToCreateOrderResponse(MessageHeaders headers, CustomQueueMessage<CreateOrderResponse> message) throws OrderCreationException {
-        //TODO: ver pq nao esta dando o ack!
-
         logger.info(
                 LoggingPattern.RESPONSE_INIT_LOG,
                 message.getHeaders().getSagaId(),
