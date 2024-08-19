@@ -67,6 +67,8 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                 completeOrder(message, orderGateway, orquestrationGateway);
                 notifyCustomer(message, customerGateway, orquestrationGateway, PREPARE_ORDER);
                 break;
+            case NOTIFY_CUSTOMER:
+                break;
             default:
                 throw new OrderCreationException(SAGA_12_ORQUESTRATION_STEP_NR, "Orquestration Step not recognized.");
         }

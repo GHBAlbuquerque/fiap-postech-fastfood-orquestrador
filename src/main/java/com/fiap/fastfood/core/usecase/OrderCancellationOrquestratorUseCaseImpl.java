@@ -46,6 +46,8 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
             case CREATE_PAYMENT, CANCEL_PAYMENT:
                 cancelOrder(message, orderGateway, orquestrationGateway);
                 break;
+            case NOTIFY_CUSTOMER:
+                break;
             default:
                 throw new OrderCancellationException(SAGA_12_ORQUESTRATION_STEP_NR,
                         "Orquestration Step not recognized or does not have Compensating Transactions."
