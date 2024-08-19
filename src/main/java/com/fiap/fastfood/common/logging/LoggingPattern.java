@@ -2,9 +2,9 @@ package com.fiap.fastfood.common.logging;
 
 public class LoggingPattern {
 
-    public static final String COMMAND_INIT_LOG = "[COMMAND] SagaId: {} | Sending Command for {}... | Message: {}";
-    public static final String COMMAND_END_LOG = "[COMMAND] SagaId: {} | Command Succesfully sent for {}.";
-    public static final String COMMAND_ERROR_LOG = "[COMMAND] SagaId: {} | Error sending command for {}. | Error Message: {} | Message: {}";
+    public static final String COMMAND_INIT_LOG = "[COMMAND] SagaId: {} | Sending command for {}... | Message: {}";
+    public static final String COMMAND_END_LOG = "[COMMAND] SagaId: {} | Command succesfully sent to {}.";
+    public static final String COMMAND_ERROR_LOG = "[COMMAND] SagaId: {} | Error sending command to {}. | Error Message: {} | Message: {}";
 
     public static final String RESPONSE_INIT_LOG = "[RESPONSE] SagaId: {} | Response received from {}. ";
     public static final String RESPONSE_END_LOG = "[RESPONSE] SagaId: {} | Response successfully received from {}.";
