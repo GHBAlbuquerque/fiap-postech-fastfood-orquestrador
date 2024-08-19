@@ -4,10 +4,12 @@ import com.fiap.fastfood.core.entity.OrquestrationStepEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class NotifyCustomerCommand {
 
     private String orderId;
