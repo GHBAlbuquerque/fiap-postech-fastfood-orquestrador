@@ -11,8 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class MessageSenderimpl implements MessageSender {
 
@@ -45,7 +43,7 @@ public class MessageSenderimpl implements MessageSender {
                     .withQueueUrl(queueUrl)
                     .withMessageBody(objectMapper.writeValueAsString(object))
                     .withMessageGroupId(sagaId)
-                    .withMessageDeduplicationId(UUID.randomUUID().toString());
+                    .withMessageDeduplicationId(sagaId);
 
         } catch (Exception ex) {
             logger.error(
