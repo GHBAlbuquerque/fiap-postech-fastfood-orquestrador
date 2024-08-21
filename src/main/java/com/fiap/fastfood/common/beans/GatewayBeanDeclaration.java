@@ -18,7 +18,7 @@ public class GatewayBeanDeclaration {
     }
 
     @Bean
-    public PaymentGateway productGateway(MessageSender messageSender) {
+    public PaymentGateway paymentGateway(MessageSender messageSender) {
         return new PaymentGatewayImpl(messageSender);
     }
 

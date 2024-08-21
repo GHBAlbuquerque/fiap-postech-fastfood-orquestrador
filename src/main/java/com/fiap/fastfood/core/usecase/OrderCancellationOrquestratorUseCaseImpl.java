@@ -87,7 +87,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                     new PaymentCommand(orderId, customerId, paymentId)
             );
 
-            paymentGateway.commandPaymentCreation(message);
+            paymentGateway.commandPaymentReversal(message);
 
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,
@@ -138,7 +138,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                     new PaymentCommand(orderId, customerId, paymentId)
             );
 
-            paymentGateway.commandPaymentCreation(message);
+            paymentGateway.commandPaymentCancellation(message);
 
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,
@@ -189,7 +189,7 @@ public class OrderCancellationOrquestratorUseCaseImpl implements OrderCancellati
                     new OrderCommand(orderId, customerId, paymentId)
             );
 
-            orderGateway.commandOrderPreparation(message);
+            orderGateway.commandOrderCancellation(message);
 
             logger.info(
                     LoggingPattern.ORQUESTRATION_END_LOG,
