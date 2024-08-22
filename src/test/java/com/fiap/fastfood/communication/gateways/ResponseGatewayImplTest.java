@@ -97,7 +97,6 @@ class ResponseGatewayImplTest {
         assertThrows(OrderCreationException.class, () -> responseGateway.listenToCreateOrderResponse(headers, message));
     }
 
-
     private static CustomQueueMessage<CreateOrderResponse> getMessage(CreateOrderResponse createOrderResponse) {
         final var headers = new CustomMessageHeaders("sagaId", "orderId", "messageType", "source");
         return new CustomQueueMessage<CreateOrderResponse>(headers, createOrderResponse);

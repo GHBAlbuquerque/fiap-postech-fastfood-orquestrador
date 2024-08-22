@@ -10,6 +10,7 @@ import com.fiap.fastfood.common.interfaces.gateways.OrderGateway;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.interfaces.usecases.OrderCancellationOrquestratorUseCase;
+import com.fiap.fastfood.common.logging.TransactionInformationStorage;
 import com.fiap.fastfood.core.entity.Order;
 import com.fiap.fastfood.core.entity.OrquestrationStepEnum;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +21,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -138,10 +142,101 @@ class OrderCreationOrquestratorUseCaseImplTest {
         verify(orquestrationGateway).updateStepRecord(sagaId, OrquestrationStepEnum.NOTIFY_CUSTOMER.name(), orderId);
     }
 
+
+    @Test
+    void testCreateOrder_Failure_ThrowsOrderCreationException() throws OrderCreationException {
+        doThrow(new RuntimeException("Database error")).when(orderGateway).commandOrderCreation(any());
+
+        assertThrows(OrderCreationException.class, () -> orderCreationOrquestratorUseCaseImpl.createOrder(new Order(1L, List.of()), orderGateway, orquestrationGateway));
+
+        verify(orquestrationGateway).createStepRecord(any());
+    }
+
+    @Test
+    void testCreatePayment_Failure_ThrowsOrderCreationException() throws OrderCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+
+        final var response = getCompleteMessage(OrquestrationStepEnum.CREATE_ORDER);
+        final var sagaId = response.getHeaders().getSagaId();
+        final var orderId = response.getHeaders().getOrderId();
+
+        doThrow(new RuntimeException("Payment service unavailable")).when(paymentGateway).commandPaymentCreation(any());
+
+        assertThrows(OrderCreationException.class, () -> orderCreationOrquestratorUseCaseImpl.createPayment(response, paymentGateway, orderGateway, orquestrationGateway));
+
+        verify(orquestrationGateway).updateStepRecord(sagaId, OrquestrationStepEnum.CREATE_PAYMENT.name(), orderId);
+    }
+
+    @Test
+    void testChargePayment_Failure_ThrowsOrderCreationException() throws OrderCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+
+        final var response = getCompleteMessage(OrquestrationStepEnum.CREATE_PAYMENT);
+        final var sagaId = response.getHeaders().getSagaId();
+        final var orderId = response.getHeaders().getOrderId();
+
+        doThrow(new RuntimeException("Payment charge failed")).when(paymentGateway).commandPaymentCharge(any());
+
+        assertThrows(OrderCreationException.class, () -> orderCreationOrquestratorUseCaseImpl.chargePayment(response, paymentGateway, orquestrationGateway));
+
+        verify(orquestrationGateway).updateStepRecord(sagaId, OrquestrationStepEnum.CHARGE_PAYMENT.name(), orderId);
+    }
+
+    @Test
+    void testPrepareOrder_Failure_ThrowsOrderCreationException() throws OrderCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+
+        final var response = getCompleteMessage(OrquestrationStepEnum.CHARGE_PAYMENT);
+        final var sagaId = response.getHeaders().getSagaId();
+        final var orderId = response.getHeaders().getOrderId();
+
+        doThrow(new RuntimeException("Order preparation failed")).when(orderGateway).commandOrderPreparation(any());
+
+        assertThrows(OrderCreationException.class, () -> orderCreationOrquestratorUseCaseImpl.prepareOrder(response, orderGateway, paymentGateway, orquestrationGateway));
+
+        verify(orquestrationGateway).updateStepRecord(sagaId, OrquestrationStepEnum.PREPARE_ORDER.name(), orderId);
+    }
+
+    @Test
+    void testCompleteOrder_Failure_ThrowsOrderCreationException() throws OrderCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+
+        final var response = getCompleteMessage(OrquestrationStepEnum.PREPARE_ORDER);
+        final var sagaId = response.getHeaders().getSagaId();
+        final var orderId = response.getHeaders().getOrderId();
+
+        doThrow(new RuntimeException("Order completion failed")).when(orderGateway).commandOrderCompletion(any());
+
+        assertThrows(OrderCreationException.class, () -> orderCreationOrquestratorUseCaseImpl.completeOrder(response, orderGateway, orquestrationGateway));
+
+        verify(orquestrationGateway).updateStepRecord(sagaId, OrquestrationStepEnum.COMPLETE_ORDER.name(), orderId);
+    }
+
+    @Test
+    void testNotifyCustomer_Failure_ThrowsOrderCreationException() throws OrderCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+
+        final var response = getCompleteMessage(OrquestrationStepEnum.CHARGE_PAYMENT);
+        final var sagaId = response.getHeaders().getSagaId();
+        final var orderId = response.getHeaders().getOrderId();
+
+        doThrow(new RuntimeException("Customer notification failed")).when(customerGateway).commandCustomerNotification(any());
+
+        assertThrows(OrderCreationException.class, () -> orderCreationOrquestratorUseCaseImpl.notifyCustomer(response, customerGateway, orquestrationGateway, OrquestrationStepEnum.NOTIFY_CUSTOMER));
+
+        verify(orquestrationGateway).updateStepRecord(sagaId, OrquestrationStepEnum.NOTIFY_CUSTOMER.name(), orderId);
+    }
+
     private static CustomQueueMessage<CreateOrderResponse> getCreateOrderResponseCustomQueueMessage(OrquestrationStepEnum step) {
         final var headers = new CustomMessageHeaders("sagaId", "orderId", "messageType", "source");
         final var body = new CreateOrderResponse("orderId", 1L, "paymentId", step, true);
         return new CustomQueueMessage<>(headers, body);
+    }
+
+    private static CustomQueueMessage<CreateOrderResponse> getCompleteMessage(OrquestrationStepEnum step) {
+        final var headers = new CustomMessageHeaders("sagaId", "orderId", "messageType", "source");
+        final var body = new CreateOrderResponse("orderId", 1L, "paymentId", step, true);
+        return new CustomQueueMessage<CreateOrderResponse>(headers, body);
     }
 
 }
