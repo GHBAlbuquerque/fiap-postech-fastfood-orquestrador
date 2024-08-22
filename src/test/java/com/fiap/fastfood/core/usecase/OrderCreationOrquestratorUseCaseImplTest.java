@@ -55,7 +55,6 @@ class OrderCreationOrquestratorUseCaseImplTest {
     void testOrquestrateCreateOrder() throws OrderCreationException, OrderCancellationException {
         final var executedStep = OrquestrationStepEnum.CREATE_ORDER;
         final var message = getCreateOrderResponseCustomQueueMessage(executedStep);
-        final var sagaId = message.getHeaders().getSagaId();
 
         orderCreationOrquestratorUseCaseImpl.orquestrate(message, orderGateway, paymentGateway, customerGateway, orquestrationGateway);
 
