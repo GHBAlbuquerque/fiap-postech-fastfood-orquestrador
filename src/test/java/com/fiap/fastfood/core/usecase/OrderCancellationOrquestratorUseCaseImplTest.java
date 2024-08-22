@@ -38,7 +38,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void orquestrate_reversePayment_success() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(PREPARE_ORDER);
+        final var message = getMessage(PREPARE_ORDER);
 
         orquestratorUseCase.orquestrate(message, orderGateway, paymentGateway, orquestrationGateway);
 
@@ -49,7 +49,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void orquestrate_cancelPayment_success() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(CANCEL_PAYMENT);
+        final var message = getMessage(CANCEL_PAYMENT);
         orquestratorUseCase.orquestrate(message, orderGateway, paymentGateway, orquestrationGateway);
 
         verify(orquestrationGateway, times(1)).updateStepRecord(any(), eq(OrquestrationStepEnum.CANCEL_ORDER.name()), any());
@@ -57,7 +57,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void orquestrate_cancelOrder_success() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(CANCEL_ORDER);
+        final var message = getMessage(CANCEL_ORDER);
 
         orquestratorUseCase.orquestrate(message, orderGateway, paymentGateway, orquestrationGateway);
 
@@ -66,7 +66,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void reversePayment_success() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(REVERSE_PAYMENT);
+        final var message = getMessage(REVERSE_PAYMENT);
 
         orquestratorUseCase.reversePayment(message, paymentGateway, orquestrationGateway);
 
@@ -76,7 +76,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void reversePayment_failure() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(REVERSE_PAYMENT);
+        final var message = getMessage(REVERSE_PAYMENT);
 
         doThrow(new RuntimeException("Payment reversal failed")).when(paymentGateway).commandPaymentReversal(any());
 
@@ -89,7 +89,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void cancelPayment_success() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(CANCEL_PAYMENT);
+        final var message = getMessage(CANCEL_PAYMENT);
 
         orquestratorUseCase.cancelPayment(message, paymentGateway, orquestrationGateway);
 
@@ -99,7 +99,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void cancelPayment_failure() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(CANCEL_PAYMENT);
+        final var message = getMessage(CANCEL_PAYMENT);
 
         doThrow(new RuntimeException("Payment cancellation failed")).when(paymentGateway).commandPaymentCancellation(any());
 
@@ -112,7 +112,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void cancelOrder_success() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(CANCEL_ORDER);
+        final var message = getMessage(CANCEL_ORDER);
 
         orquestratorUseCase.cancelOrder(message, orderGateway, orquestrationGateway);
 
@@ -122,7 +122,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
 
     @Test
     void cancelOrder_failure() throws OrderCancellationException, OrderCreationException {
-        final var message = getCreateOrderResponseCustomQueueMessage(CANCEL_ORDER);
+        final var message = getMessage(CANCEL_ORDER);
 
         doThrow(new RuntimeException("Order cancellation failed")).when(orderGateway).commandOrderCancellation(any());
 
@@ -134,7 +134,7 @@ class OrderCancellationOrquestratorUseCaseImplTest {
     }
 
 
-    private static CustomQueueMessage<CreateOrderResponse> getCreateOrderResponseCustomQueueMessage(OrquestrationStepEnum step) {
+    private static CustomQueueMessage<CreateOrderResponse> getMessage(OrquestrationStepEnum step) {
         final var headers = new CustomMessageHeaders("sagaId", "orderId", "messageType", "source");
         final var body = new CreateOrderResponse("orderId", 1L, "paymentId", step, true);
         return new CustomQueueMessage<>(headers, body);
