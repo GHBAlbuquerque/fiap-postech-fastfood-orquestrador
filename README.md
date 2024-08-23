@@ -283,7 +283,7 @@ Passo-a-passo:
 
 > Utilizando a API
 
-1. Copie o conteúdo do arquivo misc/openapi.json
+1. Copie o conteúdo do arquivo misc/API/openapi.json
 2. Vá para o site 'https://editor.swagger.io/' e cole o json copiado na esquerda
 3. Veja os endpoints disponíveis para a API
 4. Para realizar chamadas aos endpoints http do gateway, utilize a 'Invoke URL' e os seguintes headers:
@@ -292,7 +292,7 @@ Passo-a-passo:
 
 OU
 
-1. Abra o arquivo misc/openapi.html no seu navegador
+1. Abra o arquivo misc/API/index.html no seu navegador
 2. Veja os endpoints disponíveis para a API
 3. Para realizar chamadas aos endpoints http do gateway, utilize a 'Invoke URL' e os seguintes headers:
     1. cpf_cliente -> valor cadastrado previamente: 93678719023
@@ -306,8 +306,20 @@ OU
 2. O username será o cpf informado
 3. Pegue o código de verificação enviado para o e-mail
 4. Confirme a criação do usuário para permitir o uso em endpoints: envie uma requisição para o endpoint POST '
-   /clients/confirmation' (utilizando cpf e o código)
+   /customers/confirmation' (utilizando cpf e o código)
 5. Utilize o cpf e senha cadastrados para fazer solicitações como orientado acima
+
+Ex. de chamada:
+![](misc/images/chamada_gateway_exemplo.png)
+
+<br/>
+
+> (opcional) Desativar usuário
+
+1. Utilize o id de cliente para desativar o usuário, de acordo com as definições da LGPD
+2. Utilize os headers de 'cpf_cliente' e 'senha_cliente' nos Headers para autenticação
+3. envie uma requisição para o endpoint DELETE '/customers' 
+4. O usuário será desativado, com a _flag_ de isActive setada como false e alguns dados pessoais permanentemente apagados da base
 
 Ex. de chamada:
 ![](misc/images/chamada_gateway_exemplo.png)
