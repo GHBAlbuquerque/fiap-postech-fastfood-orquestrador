@@ -14,7 +14,7 @@ public class SecConfig {
         http.csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(authz -> authz
-                .requestMatchers("/actuator/**").hasRole("ACTUATOR")
+                .requestMatchers("/actuator/**").permitAll()
                 .anyRequest().permitAll());
 
         return http.build();
