@@ -689,32 +689,6 @@
   <script>
     // Script section to load models into a JS Var
     var defs = {}
-            defs["CheckoutRequest"] = {
-  "type" : "object",
-  "properties" : {
-    "orderId" : {
-      "type" : "string"
-    }
-  }
-};
-            defs["CheckoutResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "orderId" : {
-      "type" : "string"
-    },
-    "status" : {
-      "type" : "string"
-    },
-    "createAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    }
-  }
-};
             defs["ConfirmSignUpRequest"] = {
   "required" : [ "code", "cpf" ],
   "type" : "object",
@@ -730,6 +704,23 @@
             defs["CreateOrderRequest"] = {
   "type" : "object",
   "properties" : {
+    "customerId" : {
+      "type" : "string"
+    },
+    "items" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/Item"
+      }
+    }
+  }
+};
+            defs["CreateOrderResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "customerId" : {
+      "type" : "string"
+    },
     "items" : {
       "type" : "array",
       "items" : {
@@ -920,7 +911,25 @@
     }
   }
 };
-            defs["RegisterClientRequest"] = {
+            defs["PaymentResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "orderId" : {
+      "type" : "string"
+    },
+    "status" : {
+      "type" : "string"
+    },
+    "createAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    }
+  }
+};
+            defs["RegisterCustomerRequest"] = {
   "type" : "object",
   "properties" : {
     "name" : {
@@ -938,7 +947,7 @@
     }
   }
 };
-            defs["RegisterClientResponse"] = {
+            defs["RegisterCustomerResponse"] = {
   "type" : "object",
   "properties" : {
     "id" : {
@@ -982,16 +991,12 @@
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
-                  <li class="nav-header" data-group="CheckoutController"><a href="#api-CheckoutController">API Methods - CheckoutController</a></li>
-                    <li data-group="CheckoutController" data-name="checkout" class="">
-                      <a href="#api-CheckoutController-checkout">checkout</a>
-                    </li>
-                    <li data-group="CheckoutController" data-name="findAll" class="">
-                      <a href="#api-CheckoutController-findAll">findAll</a>
-                    </li>
                   <li class="nav-header" data-group="CustomerController"><a href="#api-CustomerController">API Methods - CustomerController</a></li>
                     <li data-group="CustomerController" data-name="confirmSignUp" class="">
                       <a href="#api-CustomerController-confirmSignUp">confirmSignUp</a>
+                    </li>
+                    <li data-group="CustomerController" data-name="deactivateCustomer" class="">
+                      <a href="#api-CustomerController-deactivateCustomer">deactivateCustomer</a>
                     </li>
                     <li data-group="CustomerController" data-name="getCustomerByCpf" class="">
                       <a href="#api-CustomerController-getCustomerByCpf">getCustomerByCpf</a>
@@ -1021,6 +1026,10 @@
                     </li>
                     <li data-group="OrderController" data-name="getOrders" class="">
                       <a href="#api-OrderController-getOrders">getOrders</a>
+                    </li>
+                  <li class="nav-header" data-group="PaymentController"><a href="#api-PaymentController">API Methods - PaymentController</a></li>
+                    <li data-group="PaymentController" data-name="findAll" class="">
+                      <a href="#api-PaymentController-findAll">findAll</a>
                     </li>
                   <li class="nav-header" data-group="ProductController"><a href="#api-ProductController">API Methods - ProductController</a></li>
                     <li data-group="ProductController" data-name="createProduct" class="">
@@ -1057,1133 +1066,6 @@
           </div>
         </div>
         <div id="sections">
-                <section id="api-CheckoutController">
-                  <h1>CheckoutController</h1>
-                    <div id="api-CheckoutController-checkout">
-                      <article id="api-CheckoutController-checkout-0" data-group="User" data-name="checkout" data-version="0">
-                        <div class="pull-left">
-                          <h1>checkout</h1>
-                          <p></p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/checkout</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-CheckoutController-checkout-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-java">Java</a></li>
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-CheckoutController-checkout-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-CheckoutController-checkout-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-CheckoutController-checkout-0-python">Python</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-CheckoutController-checkout-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
--H "auth: [[apiKey]]"\
--H "Accept: application/json"\
--H "Content-Type: application/json"\
-"http://${local.load_balancer_dns}/checkout"</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-CheckoutController-checkout-0-java">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CheckoutControllerApi;
-
-import java.io.File;
-import java.util.*;
-
-public class CheckoutControllerApiExample {
-
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-        // Configure API key authorization: lambda_authorizer_cpf
-        ApiKeyAuth lambda_authorizer_cpf = (ApiKeyAuth) defaultClient.getAuthentication("lambda_authorizer_cpf");
-        lambda_authorizer_cpf.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //lambda_authorizer_cpf.setApiKeyPrefix("Token");
-
-        CheckoutControllerApi apiInstance = new CheckoutControllerApi();
-        CheckoutRequest body = ; // CheckoutRequest | 
-        String cpfCliente = cpfCliente_example; // String | 
-        String senhaCliente = senhaCliente_example; // String | 
-        try {
-            apiInstance.checkout(body, cpfCliente, senhaCliente);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CheckoutControllerApi#checkout");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-CheckoutController-checkout-0-android">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CheckoutControllerApi;
-
-public class CheckoutControllerApiExample {
-
-    public static void main(String[] args) {
-        CheckoutControllerApi apiInstance = new CheckoutControllerApi();
-        CheckoutRequest body = ; // CheckoutRequest | 
-        String cpfCliente = cpfCliente_example; // String | 
-        String senhaCliente = senhaCliente_example; // String | 
-        try {
-            apiInstance.checkout(body, cpfCliente, senhaCliente);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CheckoutControllerApi#checkout");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-CheckoutController-checkout-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-CheckoutController-checkout-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-// Configure API key authorization: (authentication scheme: lambda_authorizer_cpf)
-[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"auth"];
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"auth"];
-CheckoutRequest *body = ; // 
-String *cpfCliente = cpfCliente_example; // 
-String *senhaCliente = senhaCliente_example; // 
-
-CheckoutControllerApi *apiInstance = [[CheckoutControllerApi alloc] init];
-
-[apiInstance checkoutWith:body
-    cpfCliente:cpfCliente
-    senhaCliente:senhaCliente
-              completionHandler: ^(NSError* error) {
-                            if (error) {
-                                NSLog(@"Error: %@", error);
-                            }
-                        }];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-checkout-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var FastFoodFiap = require('fast_food_fiap');
-var defaultClient = FastFoodFiap.ApiClient.instance;
-
-// Configure API key authorization: lambda_authorizer_cpf
-var lambda_authorizer_cpf = defaultClient.authentications['lambda_authorizer_cpf'];
-lambda_authorizer_cpf.apiKey = "YOUR API KEY"
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//lambda_authorizer_cpf.apiKeyPrefix['auth'] = "Token"
-
-var api = new FastFoodFiap.CheckoutControllerApi()
-var body = ; // {{CheckoutRequest}} 
-var cpfCliente = cpfCliente_example; // {{String}} 
-var senhaCliente = senhaCliente_example; // {{String}} 
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.checkout(bodycpfClientesenhaCliente, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-CheckoutController-checkout-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-CheckoutController-checkout-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class checkoutExample
-    {
-        public void main()
-        {
-
-            // Configure API key authorization: lambda_authorizer_cpf
-            Configuration.Default.ApiKey.Add("auth", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("auth", "Bearer");
-
-            var apiInstance = new CheckoutControllerApi();
-            var body = new CheckoutRequest(); // CheckoutRequest | 
-            var cpfCliente = cpfCliente_example;  // String | 
-            var senhaCliente = senhaCliente_example;  // String | 
-
-            try
-            {
-                apiInstance.checkout(body, cpfCliente, senhaCliente);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling CheckoutControllerApi.checkout: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-checkout-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: lambda_authorizer_cpf
-Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('auth', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth', 'Bearer');
-
-$api_instance = new Swagger\Client\ApiCheckoutControllerApi();
-$body = ; // CheckoutRequest | 
-$cpfCliente = cpfCliente_example; // String | 
-$senhaCliente = senhaCliente_example; // String | 
-
-try {
-    $api_instance->checkout($body, $cpfCliente, $senhaCliente);
-} catch (Exception $e) {
-    echo 'Exception when calling CheckoutControllerApi->checkout: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-checkout-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::SwaggerClient::Configuration;
-use WWW::SwaggerClient::CheckoutControllerApi;
-
-# Configure API key authorization: lambda_authorizer_cpf
-$WWW::SwaggerClient::Configuration::api_key->{'auth'} = 'YOUR_API_KEY';
-# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$WWW::SwaggerClient::Configuration::api_key_prefix->{'auth'} = "Bearer";
-
-my $api_instance = WWW::SwaggerClient::CheckoutControllerApi->new();
-my $body = WWW::SwaggerClient::Object::CheckoutRequest->new(); # CheckoutRequest | 
-my $cpfCliente = cpfCliente_example; # String | 
-my $senhaCliente = senhaCliente_example; # String | 
-
-eval { 
-    $api_instance->checkout(body => $body, cpfCliente => $cpfCliente, senhaCliente => $senhaCliente);
-};
-if ($@) {
-    warn "Exception when calling CheckoutControllerApi->checkout: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-checkout-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: lambda_authorizer_cpf
-swagger_client.configuration.api_key['auth'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['auth'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = swagger_client.CheckoutControllerApi()
-body =  # CheckoutRequest | 
-cpfCliente = cpfCliente_example # String | 
-senhaCliente = senhaCliente_example # String | 
-
-try: 
-    api_instance.checkout(body, cpfCliente, senhaCliente)
-except ApiException as e:
-    print("Exception when calling CheckoutControllerApi->checkout: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Parameters</h2>
-
-
-                            <div class="methodsubtabletitle">Header parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                  <tr><td style="width:150px;">cpf_cliente*</td>
-                                  <td>
-                                  
-                                  
-                                      <div id="d2e199_checkout_cpfCliente">
-                                          <div class="json-schema-view">
-                                              <div class="primitive">
-                                                  <span class="type">
-                                                      String
-                                                  </span>
-                                  
-                                              </div>
-                                                  <div class="inner required">
-                                                      Required
-                                                  </div>
-                                          </div>
-                                      </div>
-                                  </td>
-                                  </tr>
-                                  <tr><td style="width:150px;">senha_cliente*</td>
-                                  <td>
-                                  
-                                  
-                                      <div id="d2e199_checkout_senhaCliente">
-                                          <div class="json-schema-view">
-                                              <div class="primitive">
-                                                  <span class="type">
-                                                      String
-                                                  </span>
-                                  
-                                              </div>
-                                                  <div class="inner required">
-                                                      Required
-                                                  </div>
-                                          </div>
-                                      </div>
-                                  </td>
-                                  </tr>
-                            </table>
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-                                <td>
-                                
-                                
-                                <script>
-                                $(document).ready(function() {
-                                  var schemaWrapper = {
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/CheckoutRequest"
-      }
-    }
-  },
-  "required" : true
-};
-                                  var schema = schemaWrapper.content["application/json"].schema;
-                                  if (schema.$ref != null) {
-                                    schema = defsParser.$refs.get(schema.$ref);
-                                  } else {
-                                    schemaWrapper.components = {};
-                                    schemaWrapper.components.schemas = Object.assign({}, defs);
-                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                      console.log(err);
-                                    });
-                                  }
-                                
-                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-                                  var result = $('#d2e199_checkout_body');
-                                  result.empty();
-                                  result.append(view.render());
-                                });
-                                </script>
-                                <div id="d2e199_checkout_body"></div>
-                                </td>
-                                </tr>
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3> Status: 200 - Success </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                            </div>
-
-                            <h3> Status: 400 - Bad Request </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-checkout-400-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-checkout-400-schema">
-                                  <div id='responses-checkout-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Bad Request",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-checkout-400-schema-data').val(stringify(schema));
-                                        var result = $('#responses-checkout-400-schema-400');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-checkout-400-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 403 - Forbidden </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-checkout-403-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-checkout-403-schema">
-                                  <div id='responses-checkout-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Forbidden",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-checkout-403-schema-data').val(stringify(schema));
-                                        var result = $('#responses-checkout-403-schema-403');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-checkout-403-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 404 - Not Found </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-checkout-404-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-checkout-404-schema">
-                                  <div id='responses-checkout-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Not Found",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-checkout-404-schema-data').val(stringify(schema));
-                                        var result = $('#responses-checkout-404-schema-404');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-checkout-404-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 500 - Internal Server Error </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-checkout-500-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-checkout-500-schema">
-                                  <div id='responses-checkout-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Internal Server Error",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-checkout-500-schema-data').val(stringify(schema));
-                                        var result = $('#responses-checkout-500-schema-500');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-checkout-500-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: default -  </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                            </div>
-
-                        </article>
-                      </div>
-                      <hr>
-                    <div id="api-CheckoutController-findAll">
-                      <article id="api-CheckoutController-findAll-0" data-group="User" data-name="findAll" data-version="0">
-                        <div class="pull-left">
-                          <h1>findAll</h1>
-                          <p></p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/checkout</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-CheckoutController-findAll-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-java">Java</a></li>
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-CheckoutController-findAll-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-CheckoutController-findAll-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-CheckoutController-findAll-0-python">Python</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-CheckoutController-findAll-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
--H "auth: [[apiKey]]"\
--H "Accept: application/json"\
-"http://${local.load_balancer_dns}/checkout"</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-CheckoutController-findAll-0-java">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.CheckoutControllerApi;
-
-import java.io.File;
-import java.util.*;
-
-public class CheckoutControllerApiExample {
-
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-        // Configure API key authorization: lambda_authorizer_cpf
-        ApiKeyAuth lambda_authorizer_cpf = (ApiKeyAuth) defaultClient.getAuthentication("lambda_authorizer_cpf");
-        lambda_authorizer_cpf.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //lambda_authorizer_cpf.setApiKeyPrefix("Token");
-
-        CheckoutControllerApi apiInstance = new CheckoutControllerApi();
-        String cpfCliente = cpfCliente_example; // String | 
-        String senhaCliente = senhaCliente_example; // String | 
-        try {
-            array[CheckoutResponse] result = apiInstance.findAll(cpfCliente, senhaCliente);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CheckoutControllerApi#findAll");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-CheckoutController-findAll-0-android">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CheckoutControllerApi;
-
-public class CheckoutControllerApiExample {
-
-    public static void main(String[] args) {
-        CheckoutControllerApi apiInstance = new CheckoutControllerApi();
-        String cpfCliente = cpfCliente_example; // String | 
-        String senhaCliente = senhaCliente_example; // String | 
-        try {
-            array[CheckoutResponse] result = apiInstance.findAll(cpfCliente, senhaCliente);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CheckoutControllerApi#findAll");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-CheckoutController-findAll-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-CheckoutController-findAll-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-// Configure API key authorization: (authentication scheme: lambda_authorizer_cpf)
-[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"auth"];
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"auth"];
-String *cpfCliente = cpfCliente_example; // 
-String *senhaCliente = senhaCliente_example; // 
-
-CheckoutControllerApi *apiInstance = [[CheckoutControllerApi alloc] init];
-
-[apiInstance findAllWith:cpfCliente
-    senhaCliente:senhaCliente
-              completionHandler: ^(array[CheckoutResponse] output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
-                            if (error) {
-                                NSLog(@"Error: %@", error);
-                            }
-                        }];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-findAll-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var FastFoodFiap = require('fast_food_fiap');
-var defaultClient = FastFoodFiap.ApiClient.instance;
-
-// Configure API key authorization: lambda_authorizer_cpf
-var lambda_authorizer_cpf = defaultClient.authentications['lambda_authorizer_cpf'];
-lambda_authorizer_cpf.apiKey = "YOUR API KEY"
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//lambda_authorizer_cpf.apiKeyPrefix['auth'] = "Token"
-
-var api = new FastFoodFiap.CheckoutControllerApi()
-var cpfCliente = cpfCliente_example; // {{String}} 
-var senhaCliente = senhaCliente_example; // {{String}} 
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.findAll(cpfCliente, senhaCliente, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-CheckoutController-findAll-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-CheckoutController-findAll-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class findAllExample
-    {
-        public void main()
-        {
-
-            // Configure API key authorization: lambda_authorizer_cpf
-            Configuration.Default.ApiKey.Add("auth", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("auth", "Bearer");
-
-            var apiInstance = new CheckoutControllerApi();
-            var cpfCliente = cpfCliente_example;  // String | 
-            var senhaCliente = senhaCliente_example;  // String | 
-
-            try
-            {
-                array[CheckoutResponse] result = apiInstance.findAll(cpfCliente, senhaCliente);
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling CheckoutControllerApi.findAll: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-findAll-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: lambda_authorizer_cpf
-Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('auth', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth', 'Bearer');
-
-$api_instance = new Swagger\Client\ApiCheckoutControllerApi();
-$cpfCliente = cpfCliente_example; // String | 
-$senhaCliente = senhaCliente_example; // String | 
-
-try {
-    $result = $api_instance->findAll($cpfCliente, $senhaCliente);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling CheckoutControllerApi->findAll: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-findAll-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::SwaggerClient::Configuration;
-use WWW::SwaggerClient::CheckoutControllerApi;
-
-# Configure API key authorization: lambda_authorizer_cpf
-$WWW::SwaggerClient::Configuration::api_key->{'auth'} = 'YOUR_API_KEY';
-# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$WWW::SwaggerClient::Configuration::api_key_prefix->{'auth'} = "Bearer";
-
-my $api_instance = WWW::SwaggerClient::CheckoutControllerApi->new();
-my $cpfCliente = cpfCliente_example; # String | 
-my $senhaCliente = senhaCliente_example; # String | 
-
-eval { 
-    my $result = $api_instance->findAll(cpfCliente => $cpfCliente, senhaCliente => $senhaCliente);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling CheckoutControllerApi->findAll: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-CheckoutController-findAll-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: lambda_authorizer_cpf
-swagger_client.configuration.api_key['auth'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['auth'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = swagger_client.CheckoutControllerApi()
-cpfCliente = cpfCliente_example # String | 
-senhaCliente = senhaCliente_example # String | 
-
-try: 
-    api_response = api_instance.find_all(cpfCliente, senhaCliente)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling CheckoutControllerApi->findAll: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Parameters</h2>
-
-
-                            <div class="methodsubtabletitle">Header parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                  <tr><td style="width:150px;">cpf_cliente*</td>
-                                  <td>
-                                  
-                                  
-                                      <div id="d2e199_findAll_cpfCliente">
-                                          <div class="json-schema-view">
-                                              <div class="primitive">
-                                                  <span class="type">
-                                                      String
-                                                  </span>
-                                  
-                                              </div>
-                                                  <div class="inner required">
-                                                      Required
-                                                  </div>
-                                          </div>
-                                      </div>
-                                  </td>
-                                  </tr>
-                                  <tr><td style="width:150px;">senha_cliente*</td>
-                                  <td>
-                                  
-                                  
-                                      <div id="d2e199_findAll_senhaCliente">
-                                          <div class="json-schema-view">
-                                              <div class="primitive">
-                                                  <span class="type">
-                                                      String
-                                                  </span>
-                                  
-                                              </div>
-                                                  <div class="inner required">
-                                                      Required
-                                                  </div>
-                                          </div>
-                                      </div>
-                                  </td>
-                                  </tr>
-                            </table>
-
-
-
-
-                          <h2>Responses</h2>
-                            <h3> Status: 200 - Success </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-findAll-200-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-findAll-200-schema">
-                                  <div id='responses-findAll-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Success",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "type" : "array",
-        "items" : {
-          "$ref" : "#/components/schemas/CheckoutResponse"
-        },
-        "x-content-type" : "application/json"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-findAll-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-findAll-200-schema-200');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-findAll-200-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 400 - Bad Request </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-findAll-400-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-findAll-400-schema">
-                                  <div id='responses-findAll-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Bad Request",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-findAll-400-schema-data').val(stringify(schema));
-                                        var result = $('#responses-findAll-400-schema-400');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-findAll-400-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 403 - Forbidden </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-findAll-403-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-findAll-403-schema">
-                                  <div id='responses-findAll-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Forbidden",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-findAll-403-schema-data').val(stringify(schema));
-                                        var result = $('#responses-findAll-403-schema-403');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-findAll-403-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 404 - Not Found </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-findAll-404-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-findAll-404-schema">
-                                  <div id='responses-findAll-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Not Found",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-findAll-404-schema-data').val(stringify(schema));
-                                        var result = $('#responses-findAll-404-schema-404');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-findAll-404-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 500 - Internal Server Error </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-findAll-500-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-findAll-500-schema">
-                                  <div id='responses-findAll-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Internal Server Error",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ExceptionDetails"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-findAll-500-schema-data').val(stringify(schema));
-                                        var result = $('#responses-findAll-500-schema-500');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-findAll-500-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: default -  </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                            </div>
-
-                        </article>
-                      </div>
-                      <hr>
-                  </section>
                 <section id="api-CustomerController">
                   <h1>CustomerController</h1>
                     <div id="api-CustomerController-confirmSignUp">
@@ -2696,6 +1578,550 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-confirmSignUp-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: default -  </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-CustomerController-deactivateCustomer">
+                      <article id="api-CustomerController-deactivateCustomer-0" data-group="User" data-name="deactivateCustomer" data-version="0">
+                        <div class="pull-left">
+                          <h1>deactivateCustomer</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/customers/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-CustomerController-deactivateCustomer-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-java">Java</a></li>
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-CustomerController-deactivateCustomer-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-CustomerController-deactivateCustomer-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-CustomerController-deactivateCustomer-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-CustomerController-deactivateCustomer-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+-H "auth: [[apiKey]]"\
+-H "Accept: application/json"\
+"http://${local.load_balancer_dns}/customers/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CustomerControllerApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CustomerControllerApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: lambda_authorizer_cpf
+        ApiKeyAuth lambda_authorizer_cpf = (ApiKeyAuth) defaultClient.getAuthentication("lambda_authorizer_cpf");
+        lambda_authorizer_cpf.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //lambda_authorizer_cpf.setApiKeyPrefix("Token");
+
+        CustomerControllerApi apiInstance = new CustomerControllerApi();
+        String id = id_example; // String | 
+        String cpfCliente = cpfCliente_example; // String | 
+        String senhaCliente = senhaCliente_example; // String | 
+        try {
+            apiInstance.deactivateCustomer(id, cpfCliente, senhaCliente);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CustomerControllerApi#deactivateCustomer");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CustomerControllerApi;
+
+public class CustomerControllerApiExample {
+
+    public static void main(String[] args) {
+        CustomerControllerApi apiInstance = new CustomerControllerApi();
+        String id = id_example; // String | 
+        String cpfCliente = cpfCliente_example; // String | 
+        String senhaCliente = senhaCliente_example; // String | 
+        try {
+            apiInstance.deactivateCustomer(id, cpfCliente, senhaCliente);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CustomerControllerApi#deactivateCustomer");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: lambda_authorizer_cpf)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"auth"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"auth"];
+String *id = id_example; // 
+String *cpfCliente = cpfCliente_example; // 
+String *senhaCliente = senhaCliente_example; // 
+
+CustomerControllerApi *apiInstance = [[CustomerControllerApi alloc] init];
+
+[apiInstance deactivateCustomerWith:id
+    cpfCliente:cpfCliente
+    senhaCliente:senhaCliente
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FastFoodFiap = require('fast_food_fiap');
+var defaultClient = FastFoodFiap.ApiClient.instance;
+
+// Configure API key authorization: lambda_authorizer_cpf
+var lambda_authorizer_cpf = defaultClient.authentications['lambda_authorizer_cpf'];
+lambda_authorizer_cpf.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//lambda_authorizer_cpf.apiKeyPrefix['auth'] = "Token"
+
+var api = new FastFoodFiap.CustomerControllerApi()
+var id = id_example; // {{String}} 
+var cpfCliente = cpfCliente_example; // {{String}} 
+var senhaCliente = senhaCliente_example; // {{String}} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.deactivateCustomer(id, cpfCliente, senhaCliente, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class deactivateCustomerExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: lambda_authorizer_cpf
+            Configuration.Default.ApiKey.Add("auth", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("auth", "Bearer");
+
+            var apiInstance = new CustomerControllerApi();
+            var id = id_example;  // String | 
+            var cpfCliente = cpfCliente_example;  // String | 
+            var senhaCliente = senhaCliente_example;  // String | 
+
+            try
+            {
+                apiInstance.deactivateCustomer(id, cpfCliente, senhaCliente);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CustomerControllerApi.deactivateCustomer: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: lambda_authorizer_cpf
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('auth', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiCustomerControllerApi();
+$id = id_example; // String | 
+$cpfCliente = cpfCliente_example; // String | 
+$senhaCliente = senhaCliente_example; // String | 
+
+try {
+    $api_instance->deactivateCustomer($id, $cpfCliente, $senhaCliente);
+} catch (Exception $e) {
+    echo 'Exception when calling CustomerControllerApi->deactivateCustomer: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CustomerControllerApi;
+
+# Configure API key authorization: lambda_authorizer_cpf
+$WWW::SwaggerClient::Configuration::api_key->{'auth'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'auth'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::CustomerControllerApi->new();
+my $id = id_example; # String | 
+my $cpfCliente = cpfCliente_example; # String | 
+my $senhaCliente = senhaCliente_example; # String | 
+
+eval { 
+    $api_instance->deactivateCustomer(id => $id, cpfCliente => $cpfCliente, senhaCliente => $senhaCliente);
+};
+if ($@) {
+    warn "Exception when calling CustomerControllerApi->deactivateCustomer: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CustomerController-deactivateCustomer-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: lambda_authorizer_cpf
+swagger_client.configuration.api_key['auth'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['auth'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.CustomerControllerApi()
+id = id_example # String | 
+cpfCliente = cpfCliente_example # String | 
+senhaCliente = senhaCliente_example # String | 
+
+try: 
+    api_instance.deactivate_customer(id, cpfCliente, senhaCliente)
+except ApiException as e:
+    print("Exception when calling CustomerControllerApi->deactivateCustomer: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_deactivateCustomer_id">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      String
+                                                  </span>
+                                  
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">cpf_cliente*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_deactivateCustomer_cpfCliente">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      String
+                                                  </span>
+                                  
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">senha_cliente*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_deactivateCustomer_senhaCliente">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      String
+                                                  </span>
+                                  
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Bad Request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-deactivateCustomer-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-deactivateCustomer-400-schema">
+                                  <div id='responses-deactivateCustomer-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Bad Request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-deactivateCustomer-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-deactivateCustomer-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-deactivateCustomer-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Forbidden </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-deactivateCustomer-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-deactivateCustomer-403-schema">
+                                  <div id='responses-deactivateCustomer-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Forbidden",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-deactivateCustomer-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-deactivateCustomer-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-deactivateCustomer-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - Not Found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-deactivateCustomer-404-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-deactivateCustomer-404-schema">
+                                  <div id='responses-deactivateCustomer-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Not Found",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-deactivateCustomer-404-schema-data').val(stringify(schema));
+                                        var result = $('#responses-deactivateCustomer-404-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-deactivateCustomer-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal Server Error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-deactivateCustomer-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-deactivateCustomer-500-schema">
+                                  <div id='responses-deactivateCustomer-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal Server Error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-deactivateCustomer-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-deactivateCustomer-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-deactivateCustomer-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -3354,11 +2780,11 @@ public class CustomerControllerApiExample {
     public static void main(String[] args) {
         
         CustomerControllerApi apiInstance = new CustomerControllerApi();
-        RegisterClientRequest body = ; // RegisterClientRequest | 
+        RegisterCustomerRequest body = ; // RegisterCustomerRequest | 
         String cpfCliente = cpfCliente_example; // String | 
         String senhaCliente = senhaCliente_example; // String | 
         try {
-            RegisterClientResponse result = apiInstance.registerCustomer(body, cpfCliente, senhaCliente);
+            RegisterCustomerResponse result = apiInstance.registerCustomer(body, cpfCliente, senhaCliente);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CustomerControllerApi#registerCustomer");
@@ -3375,11 +2801,11 @@ public class CustomerControllerApiExample {
 
     public static void main(String[] args) {
         CustomerControllerApi apiInstance = new CustomerControllerApi();
-        RegisterClientRequest body = ; // RegisterClientRequest | 
+        RegisterCustomerRequest body = ; // RegisterCustomerRequest | 
         String cpfCliente = cpfCliente_example; // String | 
         String senhaCliente = senhaCliente_example; // String | 
         try {
-            RegisterClientResponse result = apiInstance.registerCustomer(body, cpfCliente, senhaCliente);
+            RegisterCustomerResponse result = apiInstance.registerCustomer(body, cpfCliente, senhaCliente);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CustomerControllerApi#registerCustomer");
@@ -3393,7 +2819,7 @@ public class CustomerControllerApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-CustomerController-registerCustomer-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">RegisterClientRequest *body = ; // 
+                              <pre class="prettyprint"><code class="language-cpp">RegisterCustomerRequest *body = ; // 
 String *cpfCliente = cpfCliente_example; // 
 String *senhaCliente = senhaCliente_example; // 
 
@@ -3402,7 +2828,7 @@ CustomerControllerApi *apiInstance = [[CustomerControllerApi alloc] init];
 [apiInstance registerCustomerWith:body
     cpfCliente:cpfCliente
     senhaCliente:senhaCliente
-              completionHandler: ^(RegisterClientResponse output, NSError* error) {
+              completionHandler: ^(RegisterCustomerResponse output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -3417,7 +2843,7 @@ CustomerControllerApi *apiInstance = [[CustomerControllerApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var FastFoodFiap = require('fast_food_fiap');
 
 var api = new FastFoodFiap.CustomerControllerApi()
-var body = ; // {{RegisterClientRequest}} 
+var body = ; // {{RegisterCustomerRequest}} 
 var cpfCliente = cpfCliente_example; // {{String}} 
 var senhaCliente = senhaCliente_example; // {{String}} 
 
@@ -3450,13 +2876,13 @@ namespace Example
         {
 
             var apiInstance = new CustomerControllerApi();
-            var body = new RegisterClientRequest(); // RegisterClientRequest | 
+            var body = new RegisterCustomerRequest(); // RegisterCustomerRequest | 
             var cpfCliente = cpfCliente_example;  // String | 
             var senhaCliente = senhaCliente_example;  // String | 
 
             try
             {
-                RegisterClientResponse result = apiInstance.registerCustomer(body, cpfCliente, senhaCliente);
+                RegisterCustomerResponse result = apiInstance.registerCustomer(body, cpfCliente, senhaCliente);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3474,7 +2900,7 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiCustomerControllerApi();
-$body = ; // RegisterClientRequest | 
+$body = ; // RegisterCustomerRequest | 
 $cpfCliente = cpfCliente_example; // String | 
 $senhaCliente = senhaCliente_example; // String | 
 
@@ -3493,7 +2919,7 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CustomerControllerApi;
 
 my $api_instance = WWW::SwaggerClient::CustomerControllerApi->new();
-my $body = WWW::SwaggerClient::Object::RegisterClientRequest->new(); # RegisterClientRequest | 
+my $body = WWW::SwaggerClient::Object::RegisterCustomerRequest->new(); # RegisterCustomerRequest | 
 my $cpfCliente = cpfCliente_example; # String | 
 my $senhaCliente = senhaCliente_example; # String | 
 
@@ -3515,7 +2941,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.CustomerControllerApi()
-body =  # RegisterClientRequest | 
+body =  # RegisterCustomerRequest | 
 cpfCliente = cpfCliente_example # String | 
 senhaCliente = senhaCliente_example # String | 
 
@@ -3592,7 +3018,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/RegisterClientRequest"
+        "$ref" : "#/components/schemas/RegisterCustomerRequest"
       }
     }
   },
@@ -3642,7 +3068,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/RegisterClientResponse"
+        "$ref" : "#/components/schemas/RegisterCustomerResponse"
       }
     }
   }
@@ -4374,7 +3800,6 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-rootOptions-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X OPTIONS\
--H "Accept: application/json"\
 "http://${local.load_balancer_dns}/"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-rootOptions-0-java">
@@ -4884,7 +4309,8 @@ public class OrderControllerApiExample {
         String cpfCliente = cpfCliente_example; // String | 
         String senhaCliente = senhaCliente_example; // String | 
         try {
-            apiInstance.createOrder(body, cpfCliente, senhaCliente);
+            CreateOrderResponse result = apiInstance.createOrder(body, cpfCliente, senhaCliente);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OrderControllerApi#createOrder");
             e.printStackTrace();
@@ -4904,7 +4330,8 @@ public class OrderControllerApiExample {
         String cpfCliente = cpfCliente_example; // String | 
         String senhaCliente = senhaCliente_example; // String | 
         try {
-            apiInstance.createOrder(body, cpfCliente, senhaCliente);
+            CreateOrderResponse result = apiInstance.createOrder(body, cpfCliente, senhaCliente);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling OrderControllerApi#createOrder");
             e.printStackTrace();
@@ -4931,7 +4358,10 @@ OrderControllerApi *apiInstance = [[OrderControllerApi alloc] init];
 [apiInstance createOrderWith:body
     cpfCliente:cpfCliente
     senhaCliente:senhaCliente
-              completionHandler: ^(NSError* error) {
+              completionHandler: ^(CreateOrderResponse output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -4958,7 +4388,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully.');
+    console.log('API called successfully. Returned data: ' + data);
   }
 };
 api.createOrder(bodycpfClientesenhaCliente, callback);
@@ -4994,7 +4424,8 @@ namespace Example
 
             try
             {
-                apiInstance.createOrder(body, cpfCliente, senhaCliente);
+                CreateOrderResponse result = apiInstance.createOrder(body, cpfCliente, senhaCliente);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
@@ -5021,7 +4452,8 @@ $cpfCliente = cpfCliente_example; // String |
 $senhaCliente = senhaCliente_example; // String | 
 
 try {
-    $api_instance->createOrder($body, $cpfCliente, $senhaCliente);
+    $result = $api_instance->createOrder($body, $cpfCliente, $senhaCliente);
+    print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrderControllerApi->createOrder: ', $e->getMessage(), PHP_EOL;
 }
@@ -5044,7 +4476,8 @@ my $cpfCliente = cpfCliente_example; # String |
 my $senhaCliente = senhaCliente_example; # String | 
 
 eval { 
-    $api_instance->createOrder(body => $body, cpfCliente => $cpfCliente, senhaCliente => $senhaCliente);
+    my $result = $api_instance->createOrder(body => $body, cpfCliente => $cpfCliente, senhaCliente => $senhaCliente);
+    print Dumper($result);
 };
 if ($@) {
     warn "Exception when calling OrderControllerApi->createOrder: $@\n";
@@ -5070,7 +4503,8 @@ cpfCliente = cpfCliente_example # String |
 senhaCliente = senhaCliente_example # String | 
 
 try: 
-    api_instance.create_order(body, cpfCliente, senhaCliente)
+    api_response = api_instance.create_order(body, cpfCliente, senhaCliente)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling OrderControllerApi->createOrder: %s\n" % e)</code></pre>
                             </div>
@@ -5175,9 +4609,49 @@ except ApiException as e:
                             <h3> Status: 200 - Success </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-createOrder-200-schema">Schema</a>
+                                </li>
+
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-createOrder-200-schema">
+                                  <div id='responses-createOrder-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateOrderResponse"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-createOrder-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-createOrder-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-createOrder-200-schema-data' type='hidden' value=''></input>
+                                </div>
                             </div>
 
                             <h3> Status: 400 - Bad Request </h3>
@@ -6524,6 +5998,571 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-getOrders-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: default -  </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-PaymentController">
+                  <h1>PaymentController</h1>
+                    <div id="api-PaymentController-findAll">
+                      <article id="api-PaymentController-findAll-0" data-group="User" data-name="findAll" data-version="0">
+                        <div class="pull-left">
+                          <h1>findAll</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/payments</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-PaymentController-findAll-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-PaymentController-findAll-0-java">Java</a></li>
+                          <li class=""><a href="#examples-PaymentController-findAll-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-PaymentController-findAll-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-PaymentController-findAll-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-PaymentController-findAll-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-PaymentController-findAll-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-PaymentController-findAll-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-PaymentController-findAll-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-PaymentController-findAll-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-PaymentController-findAll-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-PaymentController-findAll-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+-H "auth: [[apiKey]]"\
+-H "Accept: application/json"\
+"http://${local.load_balancer_dns}/payments"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-PaymentController-findAll-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PaymentControllerApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PaymentControllerApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: lambda_authorizer_cpf
+        ApiKeyAuth lambda_authorizer_cpf = (ApiKeyAuth) defaultClient.getAuthentication("lambda_authorizer_cpf");
+        lambda_authorizer_cpf.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //lambda_authorizer_cpf.setApiKeyPrefix("Token");
+
+        PaymentControllerApi apiInstance = new PaymentControllerApi();
+        String cpfCliente = cpfCliente_example; // String | 
+        String senhaCliente = senhaCliente_example; // String | 
+        try {
+            array[PaymentResponse] result = apiInstance.findAll(cpfCliente, senhaCliente);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PaymentControllerApi#findAll");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-PaymentController-findAll-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PaymentControllerApi;
+
+public class PaymentControllerApiExample {
+
+    public static void main(String[] args) {
+        PaymentControllerApi apiInstance = new PaymentControllerApi();
+        String cpfCliente = cpfCliente_example; // String | 
+        String senhaCliente = senhaCliente_example; // String | 
+        try {
+            array[PaymentResponse] result = apiInstance.findAll(cpfCliente, senhaCliente);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PaymentControllerApi#findAll");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-PaymentController-findAll-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-PaymentController-findAll-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: lambda_authorizer_cpf)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"auth"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"auth"];
+String *cpfCliente = cpfCliente_example; // 
+String *senhaCliente = senhaCliente_example; // 
+
+PaymentControllerApi *apiInstance = [[PaymentControllerApi alloc] init];
+
+[apiInstance findAllWith:cpfCliente
+    senhaCliente:senhaCliente
+              completionHandler: ^(array[PaymentResponse] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PaymentController-findAll-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var FastFoodFiap = require('fast_food_fiap');
+var defaultClient = FastFoodFiap.ApiClient.instance;
+
+// Configure API key authorization: lambda_authorizer_cpf
+var lambda_authorizer_cpf = defaultClient.authentications['lambda_authorizer_cpf'];
+lambda_authorizer_cpf.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//lambda_authorizer_cpf.apiKeyPrefix['auth'] = "Token"
+
+var api = new FastFoodFiap.PaymentControllerApi()
+var cpfCliente = cpfCliente_example; // {{String}} 
+var senhaCliente = senhaCliente_example; // {{String}} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.findAll(cpfCliente, senhaCliente, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-PaymentController-findAll-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-PaymentController-findAll-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class findAllExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: lambda_authorizer_cpf
+            Configuration.Default.ApiKey.Add("auth", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("auth", "Bearer");
+
+            var apiInstance = new PaymentControllerApi();
+            var cpfCliente = cpfCliente_example;  // String | 
+            var senhaCliente = senhaCliente_example;  // String | 
+
+            try
+            {
+                array[PaymentResponse] result = apiInstance.findAll(cpfCliente, senhaCliente);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PaymentControllerApi.findAll: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PaymentController-findAll-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: lambda_authorizer_cpf
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('auth', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('auth', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiPaymentControllerApi();
+$cpfCliente = cpfCliente_example; // String | 
+$senhaCliente = senhaCliente_example; // String | 
+
+try {
+    $result = $api_instance->findAll($cpfCliente, $senhaCliente);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PaymentControllerApi->findAll: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PaymentController-findAll-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PaymentControllerApi;
+
+# Configure API key authorization: lambda_authorizer_cpf
+$WWW::SwaggerClient::Configuration::api_key->{'auth'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'auth'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::PaymentControllerApi->new();
+my $cpfCliente = cpfCliente_example; # String | 
+my $senhaCliente = senhaCliente_example; # String | 
+
+eval { 
+    my $result = $api_instance->findAll(cpfCliente => $cpfCliente, senhaCliente => $senhaCliente);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling PaymentControllerApi->findAll: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PaymentController-findAll-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: lambda_authorizer_cpf
+swagger_client.configuration.api_key['auth'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['auth'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.PaymentControllerApi()
+cpfCliente = cpfCliente_example # String | 
+senhaCliente = senhaCliente_example # String | 
+
+try: 
+    api_response = api_instance.find_all(cpfCliente, senhaCliente)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PaymentControllerApi->findAll: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">cpf_cliente*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_findAll_cpfCliente">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      String
+                                                  </span>
+                                  
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">senha_cliente*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_findAll_senhaCliente">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      String
+                                                  </span>
+                                  
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Success </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findAll-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findAll-200-schema">
+                                  <div id='responses-findAll-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Success",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/PaymentResponse"
+        },
+        "x-content-type" : "application/json"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findAll-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findAll-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findAll-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Bad Request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findAll-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findAll-400-schema">
+                                  <div id='responses-findAll-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Bad Request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findAll-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findAll-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findAll-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Forbidden </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findAll-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findAll-403-schema">
+                                  <div id='responses-findAll-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Forbidden",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findAll-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findAll-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findAll-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - Not Found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findAll-404-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findAll-404-schema">
+                                  <div id='responses-findAll-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Not Found",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findAll-404-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findAll-404-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findAll-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal Server Error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-findAll-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-findAll-500-schema">
+                                  <div id='responses-findAll-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal Server Error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ExceptionDetails"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-findAll-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-findAll-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-findAll-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 

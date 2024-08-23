@@ -1,37 +1,52 @@
 # 🚀 FIAP : Challenge Pós-Tech Software Architecture
-## 🍔 Projeto Fast Food |  Microsserviço de Orquestração SAGA
 
-Projeto realizado para a Pós-Graduação de Arquitetura de Sistemas da FIAP. Criação de um sistema de autoatendimento para uma lanchonete.
+## 🍔 Projeto Fast Food | Microsserviço de Orquestração SAGA
+
+Projeto realizado para a Pós-Graduação de Arquitetura de Sistemas da FIAP. Criação de um sistema de autoatendimento para
+uma lanchonete.
 
 <br/>
 
 ### 👨‍🏫 Grupo
 
 Integrantes:
+
 - Giovanna H. B. Albuquerque (RM352679)
 
 <br/>
 
 ### 📍 DDD
 
-Estudos de Domain Driven Design (DDD) como Domain StoryTelling, EventStorming, Linguagem Ubíqua foram feitos na ferramenta MIRO pelo grupo.
+Estudos de Domain Driven Design (DDD) como Domain StoryTelling, EventStorming, Linguagem Ubíqua foram feitos na
+ferramenta MIRO pelo grupo.
 Os resultados destes estudos estão disponíveis no link abaixo:
 
 **🔗 MIRO com DDD: https://miro.com/app/board/uXjVNMo8BCE=/?share_link_id=24975843522**
 
 <br/>
 
-### 📐 Desenho de Solução (Arquitetura)
+### ✍️ Tomada de Decisão: SAGA Pattern Orquestrado
 
-Solução arquitetônica realizada (Cloud AWS) completa:
-![](misc/sol_fase_5.drawio.svg)
 
 
 <br/>
 
-### 📐 Desenho de Solução (SAGA)
+### ✉️ Diagramas: SAGA Pattern Orquestrado
 
-TBD
+Desenho funcional SAGA orquestrado:
+![](misc/images/sol_fase_5_saga-SAGA_Funcional_drawio.png)
+
+<br/>
+
+Desenho arquitetural SAGA orquestrado:
+![](misc/images/sol_fase_5_saga-SAGA_Arquitetura_drawio.png)
+
+<br/>
+
+### 📐 Desenho de Solução (Arquitetura)
+
+Solução arquitetônica realizada (Cloud AWS) completa:
+![](misc/images/sol_fase_5_saga-Desenho Arq_fase 5_drawio.png)
 
 <br/>
 
@@ -49,28 +64,50 @@ Tecnologias utilizadas no projeto:
 ## 🎬 Como executar este projeto?
 
 Compõem esta entrega:
-> * Repositório da Lambda de Autenticação
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-lambda-auth-fastfood
-> * Repositório da Infra (EKS, Load Balancer, Security Group)
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-eks
-> * Repositório da Infra (ApiGateway e Cognito User Pools)
-   >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood
-> * Repositório das Tabelas Dynamo
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-dynamo
-> * Repositório da Base de Dados RDS
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-rds
-> * Repositório da App de Cliente
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-cliente
-> * Repositório da App de Produto
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-produto
-> * Repositório da App de Pedido
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-pedido
-> * Repositório da App de Pagamento
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-pagamento
-> * Repositório da App Orquestradora
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-orquestrador
-> * Repositório da Infra de Messageria (SQS)
-  >   * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-messaging
+
+* Repositório da Lambda de Autenticação
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-lambda-auth-fastfood
+
+* Repositório da Infra (EKS, Load Balancer, Security Group
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-eks
+
+* Repositório da Infra (ApiGateway e Cognito User Pools)
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood
+
+* Repositório das Tabelas Dynamo
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-dynamo
+
+* Repositório da Base de Dados RDS
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-rds
+
+* Repositório da App de Cliente
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-cliente
+
+* Repositório da App de Produto
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-produto
+
+* Repositório da App de Pedido
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-pedido
+
+* Repositório da App de Pagamento
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-pagamento
+
+* Repositório da App Orquestradora
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-orquestrador
+
+* Repositório da Infra de Messageria (SQS)
+
+    * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-messaging
 
 <br/>
 
@@ -84,20 +121,29 @@ Faça o download ou clone este projeto e abra em uma IDE (preferencialmente Inte
 <br/>
 
 Antes de iniciar:
-1. Crie manualmente bucket s3 na conta com para guardar os states do terraform (utilizei o nome ‘terraform-state-backend-postech’)
-2. Crie manualmente repositórios ECR na conta com os nomes ‘fiap_postech_fastfood_cliente’, ‘fiap_postech_fastfood_produto’, ‘fiap_postech_fastfood_pedido’, ‘fiap_postech_fastfood_pagamento’ e ‘fiap_postech_fastfood_orquestrador’
-3. Caso não esteja usando AWS Academy, é necessário criar também Policies e Roles para os serviços. Esta etapa não foi feita na entrega da Pós e foram usadas as Roles padrão do laboratório.
+
+1. Crie manualmente bucket s3 na conta com para guardar os states do terraform (utilizei o nome
+   ‘terraform-state-backend-postech’)
+2. Crie manualmente repositórios ECR na conta com os nomes ‘fiap_postech_fastfood_cliente’,
+   ‘fiap_postech_fastfood_produto’, ‘fiap_postech_fastfood_pedido’, ‘fiap_postech_fastfood_pagamento’ e
+   ‘fiap_postech_fastfood_orquestrador’
+3. Caso não esteja usando AWS Academy, é necessário criar também Policies e Roles para os serviços. Esta etapa não foi
+   feita na entrega da Pós e foram usadas as Roles padrão do laboratório.
 
 Passo-a-passo:
-1. Obtenha credenciais de aws_access_key_id, aws_secret_access_key e aws_session_token da sua conta na AWS Academy ou na AWS.
+
+1. Obtenha credenciais de aws_access_key_id, aws_secret_access_key e aws_session_token da sua conta na AWS Academy ou na
+   AWS.
 2. Altere credenciais nos secrets para actions dos repositórios
-3. Altere credenciais no arquivo .credentials na pasta .aws no seu computador caso deseje rodar a aplicação localmente ou usar o aws cli
+3. Altere credenciais no arquivo .credentials na pasta .aws no seu computador caso deseje rodar a aplicação localmente
+   ou usar o aws cli
 
 <br/>
 
 > Subindo a Infraestrutura do projeto (LoadBalancer, Security Group e EKS Cluster)
+
 1. Ajuste o bucket para armazenamento de estado **Repositório da Infra EKS**
-    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+    1. backend "s3" { bucket = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba infraestrutura via CICD do repositório (LoadBalancer, Security Group e EKS Cluster)
 4. Ajuste o Security Group gerado automaticamente pelo cluster
@@ -107,30 +153,34 @@ Passo-a-passo:
 <br/>
 
 > Subindo as tabelas Dynamo
+
 1. Ajuste o bucket para armazenamento de estado **Repositório das Tabelas Dynamo**
-    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+    1. backend "s3" { bucket = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba infraestrutura via CICD do repositório
 
 <br/>
 
 > Subindo o Banco de Dados RDS
+
 1. Ajuste o bucket para armazenamento de estado **Repositório da Base de Dados RDS**
-    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+    1. backend "s3" { bucket = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba infraestrutura via CICD do repositório
 
 <br/>
 
 > Subindo as filas de mensageria (SQS)
+
 1. Ajuste o bucket para armazenamento de estado **Repositório de Mensageria**
-    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+    1. backend "s3" { bucket = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba infraestrutura via CICD do repositório
 
 <br/>
 
 > Subindo a App de Cliente
+
 1. Abra o projeto no **Repositório da App de Cliente**
 2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
     1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
@@ -138,21 +188,24 @@ Passo-a-passo:
     1. Corrija DB_HOST mudando o endpoint do RDS
     2. Corrija COGNITO_ID mudando o valor do ClientId do Cognito
 4. Suba a aplicação via CI/CD do repositório
-5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
+5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
+   terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 <br/>
 
 > Subindo a App de Produto
+
 1. Abra o projeto no **Repositório da App de Produto**
 2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
     1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
 3. Suba a aplicação via CI/CD do repositório
-4. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
-
+4. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
+   terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 <br/>
 
 > Subindo a App de Pedido
+
 1. Abra o projeto no **Repositório da App de Pedido**
 2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
     1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
@@ -160,10 +213,11 @@ Passo-a-passo:
     1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer
     2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer
 4. Suba a aplicação via CI/CD do repositório
-5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
+5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
+   terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 > Subindo a App de Pagamento
-------TBD-----
+> ------TBD-----
 
 [//]: # (1. Abra o projeto no **Repositório da App de Pagamento**)
 
@@ -183,7 +237,7 @@ Passo-a-passo:
 
 
 > Subindo a App Orquestradora
-------TBD-----
+> ------TBD-----
 
 [//]: # (1. Abra o projeto no **Repositório da App Orquestradora**)
 
@@ -205,8 +259,9 @@ Passo-a-passo:
 <br/>
 
 > Subindo a Lambda de Autenticação
+
 1. Ajuste o bucket para armazenamento de estado **Repositório da Lambda de Autenticação**
-    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+    1. backend "s3" { bucket = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba a lambda via CICD do repositório
 4. Após a criação do Cognito no passo 'Subindo a Infraestrutura do projeto (Api Gateway e Cognito User Pools)':
@@ -217,8 +272,9 @@ Passo-a-passo:
 <br/>
 
 > Subindo a Infraestrutura do projeto (Api Gateway e Cognito User Pools)
+
 1. Ajuste o bucket para armazenamento de estado **Repositório da Infra**
-    1.   backend "s3" { bucket  = "${SEU BUCKET}" ... } -> arquivo main.tf
+    1. backend "s3" { bucket = "${SEU BUCKET}" ... } -> arquivo main.tf
 2. Ajuste variáveis e segredos de Actions para CI/CD no arquivo terraform.tfvars
 3. Suba infraestrutura via CICD do repositório (Api Gateway e Cognito User Pools)
 4. Ajuste um bug do autorizador do API Gateway que mostra erro 500 e mensagem ‘null’:
@@ -234,6 +290,7 @@ Passo-a-passo:
 <br/>
 
 > Utilizando a API
+
 1. Copie o conteúdo do arquivo misc/openapi.json
 2. Vá para o site 'https://editor.swagger.io/' e cole o json copiado na esquerda
 3. Veja os endpoints disponíveis para a API
@@ -252,24 +309,26 @@ OU
 <br/>
 
 > (opcional) Criar usuário e utilizar
+
 1. Crie um usuário utilizando o endpoint POST '/clients'
 2. O username será o cpf informado
 3. Pegue o código de verificação enviado para o e-mail
-4. Confirme a criação do usuário para permitir o uso em endpoints: envie uma requisição para o endpoint POST '/clients/confirmation' (utilizando cpf e o código)
+4. Confirme a criação do usuário para permitir o uso em endpoints: envie uma requisição para o endpoint POST '
+   /clients/confirmation' (utilizando cpf e o código)
 5. Utilize o cpf e senha cadastrados para fazer solicitações como orientado acima
 
 Ex. de chamada:
-![](misc/chamada_gateway_exemplo.png)
+![](misc/images/chamada_gateway_exemplo.png)
 
 <br/>
 
 ### Algumas regras:
+
 1. É necessário um cliente corretamente cadastrado no Cognito para realizar chamadas
 2. CPF precisa ser único
 3. A requisição para novo Pedido precisa ter um cliente cadastrado para criar um pedido (validado através do customerId)
 4. A requisição para novo Pedido precisa ter um produto cadastrado para criar um pedido (validado através do productId)
 5. O valor unitário do produto na requisição precisa estar correto (validado com o produto cadastrado)
-
 
 <br/>
 
