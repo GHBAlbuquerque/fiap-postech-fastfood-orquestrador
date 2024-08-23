@@ -27,7 +27,14 @@ Os resultados destes estudos estão disponíveis no link abaixo:
 
 ### ✍️ Tomada de Decisão: SAGA Pattern Orquestrado
 
+A decisão do uso do padrão SAGA orquestrado foi pautada em dois motivos:
 
+1) Maior facilidade de organização e visualização da sequência dos passos
+2) Isolamento da lógica de orquestração, separada dos serviços responsáveis pelos domínios
+
+Dessa maneira, foi criada a app _fastfood-orquestrador_, que conhece todos os microsserviços envolvidos na orquestração e responsabiliza-se exclusivamente por realizar o sequenciamento dos passos, controle de fluxo, persistência do andamento da transação e execução de transações compensatórias; responsabilidades essas que, se assumidas pelos serviços de forma coreografada, adicionariam várias linhas de lógica e complexidades exclusivamente relacionadas ao sequenciamento e não à gestão dos respectivos domínios.
+
+A implementação deste microsserviço independente proporcionou maior organização, isolamento, padronização e abstração das particularidades de cada serviço.
 
 <br/>
 
@@ -114,6 +121,7 @@ Compõem esta entrega:
 ### 💿 Getting started - Rodando com CI/CD e infra descentralizada na Cloud AWS
 
 Faça o download ou clone este projeto e abra em uma IDE (preferencialmente IntelliJ).
+
 É preciso ter:
 
     - Uma conta cadastrada na Cloud AWS / AWS Academy
@@ -183,10 +191,11 @@ Passo-a-passo:
 
 1. Abra o projeto no **Repositório da App de Cliente**
 2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
-    1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
+    1. Ajuste URI do repositório remoto ECR AWS (accountId e region)
 3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
     1. Corrija DB_HOST mudando o endpoint do RDS
     2. Corrija COGNITO_ID mudando o valor do ClientId do Cognito
+    3. Corrija ACCOUNT_ID mudando o id da conta AWS
 4. Suba a aplicação via CI/CD do repositório
 5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
    terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
@@ -197,7 +206,7 @@ Passo-a-passo:
 
 1. Abra o projeto no **Repositório da App de Produto**
 2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
-    1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
+    1. Ajuste URI do repositório remoto ECR AWS (accountId e region)
 3. Suba a aplicação via CI/CD do repositório
 4. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
    terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
@@ -208,52 +217,35 @@ Passo-a-passo:
 
 1. Abra o projeto no **Repositório da App de Pedido**
 2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
-    1. Ajuste URI do repositório remoto ECR AWS (accountid e region)
+    1. Ajuste URI do repositório remoto ECR AWS (accountId e region)
 3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
     1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer
     2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer
+    3. Corrija ACCOUNT_ID mudando o id da conta AWS
 4. Suba a aplicação via CI/CD do repositório
 5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
    terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 > Subindo a App de Pagamento
-> ------TBD-----
 
-[//]: # (1. Abra o projeto no **Repositório da App de Pagamento**)
-
-[//]: # (2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:)
-
-[//]: # (    1. Ajuste URI do repositório remoto ECR AWS &#40;accountid e region&#41;)
-
-[//]: # (3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:)
-
-[//]: # (    1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer)
-
-[//]: # (    2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer)
-
-[//]: # (4. Suba a aplicação via CI/CD do repositório)
-
-[//]: # (5. &#40;opcional&#41; Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.)
-
+1. Abra o projeto no **Repositório da App de Pagamento**
+2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
+    1. Ajuste URI do repositório remoto ECR AWS (accountId e region)
+3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
+    1. Corrija ACCOUNT_ID mudando o id da conta AWS
+4. Suba a aplicação via CI/CD do repositório
+5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
+   terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 > Subindo a App Orquestradora
-> ------TBD-----
 
-[//]: # (1. Abra o projeto no **Repositório da App Orquestradora**)
-
-[//]: # (2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:)
-
-[//]: # (    1. Ajuste URI do repositório remoto ECR AWS &#40;accountid e region&#41;)
-
-[//]: # (3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:)
-
-[//]: # (    1. Corrija MS_PRODUTO_URL, passando o valor do DNS do Loadbalancer)
-
-[//]: # (    2. Corrija MS_CLIENTE_URL, passando o valor do DNS do Loadbalancer)
-
-[//]: # (4. Suba a aplicação via CI/CD do repositório)
-
-[//]: # (5. &#40;opcional&#41; Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.)
+1. Abra o projeto no **Repositório da App Orquestradora**
+2. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.image:
+    1. Ajuste URI do repositório remoto ECR AWS (accountId e region)
+3. No arquivo infra-kubernetes/manifest.yaml, no Deployment, em spec.templates.spec.containers.env:
+    1. Corrija ACCOUNT_ID mudando o accountId da conta AWS
+4. Suba a aplicação via CI/CD do repositório
+5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
 
 <br/>
