@@ -46,7 +46,7 @@ Desenho arquitetural SAGA orquestrado:
 ### 📐 Desenho de Solução (Arquitetura)
 
 Solução arquitetônica realizada (Cloud AWS) completa:
-![](misc/images/sol_fase_5_saga-Desenho Arq_fase 5_drawio.png)
+![](misc/images/sol_fase_5_saga-Desenho_Arq_fase 5_drawio.png)
 
 <br/>
 
