@@ -32,7 +32,9 @@ public class AWSSQSBeanDeclaration {
 
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
-        return SqsAsyncClient.builder().build();
+        return SqsAsyncClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
     }
 
     @Bean

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: fiap-postech-fastfood-orquestrador
-          image: 731362576078.dkr.ecr.us-east-1.amazonaws.com/fiap_postech_fastfood_orquestrador:${IMAGE_TAG} #pegar uri do repositório ECR
+          image: 673847524989.dkr.ecr.us-east-1.amazonaws.com/fiap_postech_fastfood_orquestrador:${IMAGE_TAG} #pegar uri do repositório ECR
           imagePullPolicy: Always
           resources:
             requests:

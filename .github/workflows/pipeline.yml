@@ -2,7 +2,7 @@ name: pipeline
 
 on:
   push:
-    branches: [ main ]
+#    branches: [ main ]
 
 env:
   ECR_REPOSITORY: fiap_postech_fastfood_orquestrador
