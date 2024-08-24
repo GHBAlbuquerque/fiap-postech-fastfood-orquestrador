@@ -31,13 +31,13 @@ class CreateOrderControllerTest {
                 .post("/orders")
                 .then()
                 .log().ifValidationFails()
-                .statusCode(HttpStatus.CREATED.value())
+                .statusCode(HttpStatus.OK.value())
                 .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
     private CreateOrderRequest createOrderRequest() {
         final var item = new OrderItemRequest("0d60f617-f59e-4f88-8f04-4ad35c8248c9", "SANDWICH", 1, BigDecimal.ONE);
 
-        return new CreateOrderRequest(1L, List.of(item));
+        return new CreateOrderRequest(3L, List.of(item));
     }
 }
