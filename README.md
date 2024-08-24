@@ -57,6 +57,11 @@ Solução arquitetônica realizada (Cloud AWS) completa:
 
 <br/>
 
+
+### 📄 Relatório de Impacto à Proteção de Dados Pessoais (RIPD) - LGPD
+
+[Link para RIPD](https://docs.google.com/document/d/10qs0Dj8RrmxudRaWXij4N-wNVyFOTaXTw0SLJiH4g6Y/edit?usp=sharing)
+
 ### 💻 Tecnologias
 
 Tecnologias utilizadas no projeto:
