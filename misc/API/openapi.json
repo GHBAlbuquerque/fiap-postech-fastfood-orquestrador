@@ -1,1783 +1,1912 @@
 {
-  "openapi" : "3.0.1",
-  "info" : {
-    "title" : "Fast Food FIAP",
-    "description" : "Projeto de um sistema para lanchonete realizado para a Pós-Graduação de Arquitetura de Sistemas da FIAP",
-    "version" : "v1"
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Fast Food FIAP",
+    "description": "Projeto de um sistema para lanchonete realizado para a Pós-Graduação de Arquitetura de Sistemas da FIAP",
+    "version": "v1"
   },
-  "servers" : [ {
-    "url" : "http://${local.load_balancer_dns}",
-    "description" : "Generated server url"
-  } ],
-  "paths" : {
-    "/" : {
-      "get" : {
-        "operationId" : "Get",
-        "responses" : {
-          "200" : {
-            "description" : "200 response",
-            "headers" : {
-              "Access-Control-Allow-Origin" : {
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
+  "servers": [
+    {
+      "url": "http://${local.load_balancer_dns}",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "content" : { }
+            "content": {}
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "uri" : "http://${local.load_balancer_dns}/",
-          "responses" : {
-            "default" : {
-              "statusCode" : "200",
-              "responseParameters" : {
-                "method.response.header.Access-Control-Allow-Origin" : "'*'"
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "uri": "http://${local.load_balancer_dns}/",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "http"
+          "passthroughBehavior": "when_no_match",
+          "type": "http"
         }
       },
-      "options" : {
-        "responses" : {
-          "200" : {
-            "description" : "200 response",
-            "headers" : {
-              "Access-Control-Allow-Origin" : {
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
+      "options": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
                 }
               },
-              "Access-Control-Allow-Methods" : {
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
+              "Access-Control-Allow-Methods": {
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
                 }
               },
-              "Access-Control-Allow-Headers" : {
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
+              "Access-Control-Allow-Headers": {
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "x-amazon-apigateway-integration" : {
-          "responses" : {
-            "default" : {
-              "statusCode" : "200",
-              "responseParameters" : {
-                "method.response.header.Access-Control-Allow-Methods" : "'GET,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
-                "method.response.header.Access-Control-Allow-Origin" : "'*'"
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
           },
-          "requestTemplates" : {
-            "application/json" : "{\"statusCode\": 200}"
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "mock"
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
         }
       }
     },
-    "/actuator/health" : {
-      "get" : {
-        "operationId" : "Actuator",
-        "responses" : {
-          "200" : {
-            "description" : "200 response",
-            "headers" : {
-              "Access-Control-Allow-Origin" : {
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
+    "/actuator/health": {
+      "get": {
+        "operationId": "Actuator",
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "content" : { }
+            "content": {}
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "uri" : "http://${local.load_balancer_dns}/actuator/health",
-          "responses" : {
-            "default" : {
-              "statusCode" : "200",
-              "responseParameters" : {
-                "method.response.header.Access-Control-Allow-Origin" : "'*'"
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "uri": "http://${local.load_balancer_dns}/actuator/health",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "http"
+          "passthroughBehavior": "when_no_match",
+          "type": "http"
         }
       }
     },
-    "/swagger-ui/index" : {
-      "get" : {
-        "operationId" : "Swagger",
-        "responses" : {
-          "200" : {
-            "description" : "200 response",
-            "headers" : {
-              "Access-Control-Allow-Origin" : {
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
+    "/swagger-ui/index": {
+      "get": {
+        "operationId": "Swagger",
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "content" : { }
+            "content": {}
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "uri" : "http://${local.load_balancer_dns}/swagger-ui/index.html",
-          "responses" : {
-            "default" : {
-              "statusCode" : "200",
-              "responseParameters" : {
-                "method.response.header.Access-Control-Allow-Origin" : "'*'"
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "uri": "http://${local.load_balancer_dns}/swagger-ui/index.html",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "http"
+          "passthroughBehavior": "when_no_match",
+          "type": "http"
         }
       }
     },
-    "/products/{id}" : {
-      "get" : {
-        "tags" : [ "product-controller" ],
-        "operationId" : "findProductByIdAndName",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "product-controller"
+        ],
+        "operationId": "findProductByIdAndName",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "type",
-          "in" : "query",
-          "required" : true,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/FullProductResponse"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullProductResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_produto'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_produto'"
           },
-          "payloadFormatVersion" : "1.0",
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/products/{id}"
+          "payloadFormatVersion": "1.0",
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/products/{id}"
         }
       },
-      "put" : {
-        "tags" : [ "product-controller" ],
-        "operationId" : "updateProduct",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+      "put": {
+        "tags": [
+          "product-controller"
+        ],
+        "operationId": "updateProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/UpdateProductRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductRequest"
               }
             }
           },
-          "required" : true
+          "required": true
         },
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/FullProductResponse"
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullProductResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "PUT",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_produto'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "PUT",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_produto'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/products/{id}"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/products/{id}"
         }
       },
-      "delete" : {
-        "tags" : [ "product-controller" ],
-        "operationId" : "deleteProduct",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+      "delete": {
+        "tags": [
+          "product-controller"
+        ],
+        "operationId": "deleteProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "DELETE",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_produto'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "DELETE",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_produto'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/products/{id}"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/products/{id}"
         }
       }
     },
-    "/products" : {
-      "get" : {
-        "tags" : [ "product-controller" ],
-        "operationId" : "findProducts",
-        "parameters" : [ {
-          "name" : "type",
-          "in" : "query",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "SANDWICH", "SIDE_DISH", "DRINK" ]
+    "/products": {
+      "get": {
+        "tags": [
+          "product-controller"
+        ],
+        "operationId": "findProducts",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "SANDWICH",
+                "SIDE_DISH",
+                "DRINK"
+              ]
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/FullProductResponse"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullProductResponse"
                   }
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_produto'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_produto'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/products"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/products"
         }
       },
-      "post" : {
-        "tags" : [ "product-controller" ],
-        "operationId" : "createProduct",
-        "parameters" : [ {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+      "post": {
+        "tags": [
+          "product-controller"
+        ],
+        "operationId": "createProduct",
+        "parameters": [
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/CreateProductRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductRequest"
               }
             }
           },
-          "required" : true
+          "required": true
         },
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/FullProductResponse"
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullProductResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "POST",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_produto'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "POST",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_produto'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/products"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/products"
         }
       }
     },
-    "/orders" : {
-      "get" : {
-        "tags" : [ "order-controller" ],
-        "operationId" : "getOrders",
-        "parameters" : [ {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+    "/orders": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "getOrders",
+        "parameters": [
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/GetOrderResponse"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetOrderResponse"
                   }
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_pedido'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_pedido'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/orders"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/orders"
         }
       },
-      "post" : {
-        "tags" : [ "order-controller" ],
-        "operationId" : "createOrder",
-        "parameters" : [ {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+      "post": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "createOrder",
+        "parameters": [
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/CreateOrderRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderRequest"
               }
             }
           },
-          "required" : true
+          "required": true
         },
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CreateOrderResponse"
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "POST",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_orquestrador'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "POST",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_orquestrador'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/orders"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/orders"
         }
       }
     },
-    "/customers" : {
-      "get" : {
-        "tags" : [ "customer-controller" ],
-        "operationId" : "getCustomerByCpf",
-        "parameters" : [ {
-          "name" : "cpf",
-          "in" : "query",
-          "required" : true,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
+    "/customers": {
+      "get": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "getCustomerByCpf",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/GetClientResponse"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetClientResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_cliente'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_cliente'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/customers"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/customers"
         }
       },
-      "post" : {
-        "tags" : [ "customer-controller" ],
-        "operationId" : "registerCustomer",
-        "parameters" : [ {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+      "post": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "registerCustomer",
+        "parameters": [
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/RegisterCustomerRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterCustomerRequest"
               }
             }
           },
-          "required" : true
+          "required": true
         },
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RegisterCustomerResponse"
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterCustomerResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "POST",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_cliente'"
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "POST",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_cliente'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/customers"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/customers"
         }
       }
     },
-    "/customers/{id}" : {
-      "delete" : {
-        "tags" : [ "customer-controller" ],
-        "operationId" : "deactivateCustomer",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+    "/customers/{id}": {
+      "delete": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "deactivateCustomer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "DELETE",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_cliente'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "DELETE",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_cliente'",
+            "integration.request.header.cpf_cliente": "method.request.header.cpf_cliente",
+            "integration.request.header.senha_cliente": "method.request.header.senha_cliente"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/customers"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/customers"
         }
       }
     },
-    "/customers/confirmation" : {
-      "post" : {
-        "tags" : [ "customer-controller" ],
-        "operationId" : "confirmSignUp",
-        "parameters" : [ {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+    "/customers/confirmation": {
+      "post": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "confirmSignUp",
+        "parameters": [
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/ConfirmSignUpRequest"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmSignUpRequest"
               }
             }
           },
-          "required" : true
+          "required": true
         },
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "boolean"
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "POST",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_cliente'"
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "POST",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_cliente'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/customers/confirmation"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/customers/confirmation"
         }
       }
     },
-    "/payments" : {
-      "get" : {
-        "tags" : [ "payment-controller" ],
-        "operationId" : "findAll",
-        "parameters" : [ {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+    "/payments": {
+      "get": {
+        "tags": [
+          "payment-controller"
+        ],
+        "operationId": "findAll",
+        "parameters": [
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/PaymentResponse"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentResponse"
                   }
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_pagamento'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_pagamento'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/payments"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/payments"
         }
       }
     },
-    "/orders/{orderId}/payment-status" : {
-      "get" : {
-        "tags" : [ "order-controller" ],
-        "operationId" : "getOrderPaymentStatus",
-        "parameters" : [ {
-          "name" : "orderId",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
+    "/orders/{orderId}/payment-status": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "getOrderPaymentStatus",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senha_cliente",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
           }
-        }, {
-          "name" : "cpf_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "senha_cliente",
-          "in" : "header",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/GetOrderPaymentStatusResponse"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrderPaymentStatusResponse"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Forbidden",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ExceptionDetails"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDetails"
                 }
               }
             }
           },
-          "default" : {
-            "description" : "",
-            "content" : { }
+          "default": {
+            "description": "",
+            "content": {}
           }
         },
-        "security" : [ {
-          "lambda_authorizer_cpf" : [ ]
-        } ],
-        "x-amazon-apigateway-integration" : {
-          "httpMethod" : "GET",
-          "payloadFormatVersion" : "1.0",
-          "requestParameters" : {
-            "integration.request.header.microsservice" : "'ms_pedido'"
+        "security": [
+          {
+            "lambda_authorizer_cpf": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "GET",
+          "payloadFormatVersion": "1.0",
+          "requestParameters": {
+            "integration.request.header.microsservice": "'ms_pedido'"
           },
-          "type" : "HTTP_PROXY",
-          "uri" : "http://${local.load_balancer_dns}/payment-status"
+          "type": "HTTP_PROXY",
+          "uri": "http://${local.load_balancer_dns}/payment-status"
         }
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "UpdateProductRequest" : {
-        "required" : [ "description", "name", "price", "type" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "maxLength" : 2147483647,
-            "minLength" : 3,
-            "type" : "string"
+  "components": {
+    "schemas": {
+      "UpdateProductRequest": {
+        "required": [
+          "description",
+          "name",
+          "price",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
           },
-          "price" : {
-            "type" : "number"
+          "price": {
+            "type": "number"
           },
-          "description" : {
-            "type" : "string"
+          "description": {
+            "type": "string"
           },
-          "type" : {
-            "type" : "string"
+          "type": {
+            "type": "string"
           }
         }
       },
-      "CustomError" : {
-        "type" : "object",
-        "properties" : {
-          "message" : {
-            "type" : "string"
+      "CustomError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
           },
-          "field" : {
-            "type" : "string"
+          "field": {
+            "type": "string"
           },
-          "attemptedValue" : {
-            "type" : "object"
+          "attemptedValue": {
+            "type": "object"
           }
         }
       },
-      "ExceptionDetails" : {
-        "type" : "object",
-        "properties" : {
-          "type" : {
-            "type" : "string"
+      "ExceptionDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
           },
-          "title" : {
-            "type" : "string"
+          "title": {
+            "type": "string"
           },
-          "code" : {
-            "type" : "string"
+          "code": {
+            "type": "string"
           },
-          "detail" : {
-            "type" : "string"
+          "detail": {
+            "type": "string"
           },
-          "status" : {
-            "type" : "integer",
-            "format" : "int32"
+          "status": {
+            "type": "integer",
+            "format": "int32"
           },
-          "date" : {
-            "type" : "string",
-            "format" : "date-time"
+          "date": {
+            "type": "string",
+            "format": "date-time"
           },
-          "errors" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/CustomError"
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomError"
             }
           }
         }
       },
-      "FullProductResponse" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
+      "FullProductResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
           },
-          "name" : {
-            "type" : "string"
+          "name": {
+            "type": "string"
           },
-          "price" : {
-            "type" : "number"
+          "price": {
+            "type": "number"
           },
-          "description" : {
-            "type" : "string"
+          "description": {
+            "type": "string"
           },
-          "type" : {
-            "type" : "string"
+          "type": {
+            "type": "string"
           },
-          "createdAt" : {
-            "type" : "string",
-            "format" : "date-time"
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           },
-          "updatedAt" : {
-            "type" : "string",
-            "format" : "date-time"
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "CreateProductRequest" : {
-        "required" : [ "description", "name", "price", "type" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "maxLength" : 2147483647,
-            "minLength" : 3,
-            "type" : "string"
+      "CreateProductRequest": {
+        "required": [
+          "description",
+          "name",
+          "price",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 2147483647,
+            "minLength": 3,
+            "type": "string"
           },
-          "price" : {
-            "type" : "number"
+          "price": {
+            "type": "number"
           },
-          "description" : {
-            "type" : "string"
+          "description": {
+            "type": "string"
           },
-          "type" : {
-            "type" : "string"
+          "type": {
+            "type": "string"
           }
         }
       },
-      "CreateOrderRequest" : {
-        "type" : "object",
-        "properties" : {
-          "customerId" : {
-            "type" : "string"
+      "CreateOrderRequest": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string"
           },
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Item"
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
             }
           }
         }
       },
-      "Item" : {
-        "type" : "object",
-        "properties" : {
-          "idProduct" : {
-            "type" : "string"
+      "Item": {
+        "type": "object",
+        "properties": {
+          "idProduct": {
+            "type": "string"
           },
-          "quantity" : {
-            "type" : "integer",
-            "format" : "int32"
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
           },
-          "itemValue" : {
-            "type" : "number"
+          "itemValue": {
+            "type": "number"
           },
-          "totalItemValue" : {
-            "type" : "number"
+          "totalItemValue": {
+            "type": "number"
           }
         }
       },
-      "CreateOrderResponse" : {
-        "type" : "object",
-        "properties" : {
-          "customerId" : {
-            "type" : "string"
+      "CreateOrderResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string"
           },
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Item"
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
             }
           }
         }
       },
-      "RegisterCustomerRequest" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
+      "RegisterCustomerRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "birthday" : {
-            "type" : "string",
-            "format" : "date"
+          "birthday": {
+            "type": "string",
+            "format": "date"
           },
-          "cpf" : {
-            "type" : "string"
+          "cpf": {
+            "type": "string"
           },
-          "email" : {
-            "type" : "string"
+          "email": {
+            "type": "string"
           }
         }
       },
-      "RegisterCustomerResponse" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
+      "RegisterCustomerResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
           }
         }
       },
-      "ConfirmSignUpRequest" : {
-        "required" : [ "code", "cpf" ],
-        "type" : "object",
-        "properties" : {
-          "cpf" : {
-            "type" : "string"
+      "ConfirmSignUpRequest": {
+        "required": [
+          "code",
+          "cpf"
+        ],
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string"
           },
-          "code" : {
-            "type" : "string"
+          "code": {
+            "type": "string"
           }
         }
       },
-      "GetOrderResponse" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
+      "GetOrderResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
           },
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Item"
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
             }
           },
-          "totalValue" : {
-            "type" : "number"
+          "totalValue": {
+            "type": "number"
           },
-          "createdAt" : {
-            "type" : "string",
-            "format" : "date-time"
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           },
-          "updatedAt" : {
-            "type" : "string",
-            "format" : "date-time"
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           },
-          "status" : {
-            "type" : "string",
-            "enum" : [ "READY", "IN_PREPARATION", "RECEIVED", "COMPLETED" ]
+          "status": {
+            "type": "string",
+            "enum": [
+              "READY",
+              "IN_PREPARATION",
+              "RECEIVED",
+              "COMPLETED"
+            ]
           },
-          "paymentStatus" : {
-            "type" : "string",
-            "enum" : [ "PENDING", "APPROVED", "REJECTED" ]
+          "paymentStatus": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "APPROVED",
+              "REJECTED"
+            ]
           }
         }
       },
-      "GetOrderPaymentStatusResponse" : {
-        "type" : "object",
-        "properties" : {
-          "paymentStatus" : {
-            "type" : "string",
-            "enum" : [ "PENDING", "APPROVED", "REJECTED" ]
+      "GetOrderPaymentStatusResponse": {
+        "type": "object",
+        "properties": {
+          "paymentStatus": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "APPROVED",
+              "REJECTED"
+            ]
           }
         }
       },
-      "GetClientResponse" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
+      "GetClientResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
           },
-          "name" : {
-            "type" : "string"
+          "name": {
+            "type": "string"
           },
-          "birthday" : {
-            "type" : "string",
-            "format" : "date"
+          "birthday": {
+            "type": "string",
+            "format": "date"
           },
-          "cpf" : {
-            "type" : "string"
+          "cpf": {
+            "type": "string"
           },
-          "email" : {
-            "type" : "string"
+          "email": {
+            "type": "string"
           },
-          "creationTimestamp" : {
-            "type" : "string",
-            "format" : "date-time"
+          "creationTimestamp": {
+            "type": "string",
+            "format": "date-time"
           },
-          "updateTimestamp" : {
-            "type" : "string",
-            "format" : "date-time"
+          "updateTimestamp": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "PaymentResponse" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
+      "PaymentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
           },
-          "orderId" : {
-            "type" : "string"
+          "orderId": {
+            "type": "string"
           },
-          "status" : {
-            "type" : "string"
+          "status": {
+            "type": "string"
           },
-          "createAt" : {
-            "type" : "string",
-            "format" : "date-time"
+          "createAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
     },
-    "securitySchemes" : {
-      "lambda_authorizer_cpf" : {
-        "type" : "apiKey",
-        "name" : "auth",
-        "in" : "header",
-        "x-amazon-apigateway-authtype" : "custom",
-        "x-amazon-apigateway-authorizer" : {
-          "type" : "request",
-          "identitySource" : "method.request.header.cpf_cliente, method.request.header.senha_cliente",
-          "authorizerCredentials" : "lambda_arn",
-          "authorizerUri" : "lambda_uri",
-          "authorizerResultTtlInSeconds" : 0
+    "securitySchemes": {
+      "lambda_authorizer_cpf": {
+        "type": "apiKey",
+        "name": "auth",
+        "in": "header",
+        "x-amazon-apigateway-authtype": "custom",
+        "x-amazon-apigateway-authorizer": {
+          "type": "request",
+          "identitySource": "method.request.header.cpf_cliente, method.request.header.senha_cliente",
+          "authorizerCredentials": "lambda_arn",
+          "authorizerUri": "lambda_uri",
+          "authorizerResultTtlInSeconds": 0
         }
       }
     }
