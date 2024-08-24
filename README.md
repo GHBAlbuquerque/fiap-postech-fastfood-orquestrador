@@ -76,7 +76,7 @@ Compõem esta entrega:
 
     * https://github.com/GHBAlbuquerque/fiap-postech-lambda-auth-fastfood
 
-* Repositório da Infra (EKS, Load Balancer, Security Group
+* Repositório da Infra (EKS, Load Balancer, Security Group)
 
     * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-eks
 
@@ -226,6 +226,8 @@ Passo-a-passo:
 5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
    terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
+<br/>
+
 > Subindo a App de Pagamento
 
 1. Abra o projeto no **Repositório da App de Pagamento**
@@ -237,6 +239,8 @@ Passo-a-passo:
 5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no
    terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
 
+<br/>
+
 > Subindo a App Orquestradora
 
 1. Abra o projeto no **Repositório da App Orquestradora**
@@ -246,7 +250,6 @@ Passo-a-passo:
     1. Corrija ACCOUNT_ID mudando o accountId da conta AWS
 4. Suba a aplicação via CI/CD do repositório
 5. (opcional) Use o comando ``aws eks --region us-east-1  update-kubeconfig --name eks_cluster_fiap_postech`` no terminal para acessar seu cluster. Digite ``k9s`` para visualizar e gerenciar pods em execução.
-
 
 <br/>
 
@@ -318,8 +321,9 @@ Ex. de chamada:
 
 1. Utilize o id de cliente para desativar o usuário, de acordo com as definições da LGPD
 2. Utilize os headers de 'cpf_cliente' e 'senha_cliente' nos Headers para autenticação
-3. envie uma requisição para o endpoint DELETE '/customers' 
+3. Envie uma requisição para o endpoint DELETE '/customers' 
 4. O usuário será desativado, com a _flag_ de isActive setada como false e alguns dados pessoais permanentemente apagados da base
+5. O usuário será removido do Identity Provider e impossibilitado de acessar quaisquer outras APIs
 
 Ex. de chamada:
 ![](misc/images/chamada_gateway_exemplo.png)
