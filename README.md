@@ -330,8 +330,6 @@ Ex. de chamada:
 4. O usuário será desativado, com a _flag_ de isActive setada como false e alguns dados pessoais permanentemente apagados da base
 5. O usuário será removido do Identity Provider e impossibilitado de acessar quaisquer outras APIs
 
-Ex. de chamada:
-![](misc/images/chamada_gateway_exemplo.png)
 
 <br/>
 
