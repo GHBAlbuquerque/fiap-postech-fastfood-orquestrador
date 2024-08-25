@@ -117,7 +117,7 @@ Compõem esta entrega:
 
     * https://github.com/GHBAlbuquerque/fiap-postech-fastfood-orquestrador
 
-* Repositório da Infra de Messageria (SQS)
+* Repositório da Infra de Mensageria (SQS)
 
     * https://github.com/GHBAlbuquerque/fiap-postech-infra-fastfood-messaging
 
