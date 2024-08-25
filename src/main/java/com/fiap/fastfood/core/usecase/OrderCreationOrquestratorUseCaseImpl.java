@@ -27,8 +27,7 @@ import static com.fiap.fastfood.common.exceptions.custom.ExceptionCodes.SAGA_12_
 import static com.fiap.fastfood.common.logging.Constants.*;
 import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_NO_NEXT_TRANSACTION;
 import static com.fiap.fastfood.common.logging.LoggingPattern.ORQUESTRATION_STEP_INFORMER;
-import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.CHARGE_PAYMENT;
-import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.PREPARE_ORDER;
+import static com.fiap.fastfood.core.entity.OrquestrationStepEnum.*;
 
 public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrquestratorUseCase {
 
@@ -66,8 +65,8 @@ public class OrderCreationOrquestratorUseCaseImpl implements OrderCreationOrques
                 prepareOrder(message, orderGateway, paymentGateway, orquestrationGateway);
                 break;
             case PREPARE_ORDER:
+                notifyCustomer(message, customerGateway, orquestrationGateway, COMPLETE_ORDER);
                 completeOrder(message, orderGateway, orquestrationGateway);
-                notifyCustomer(message, customerGateway, orquestrationGateway, PREPARE_ORDER);
                 break;
             case NOTIFY_CUSTOMER, COMPLETE_ORDER:
                 logger.info(ORQUESTRATION_NO_NEXT_TRANSACTION, sagaId, executedStep);
