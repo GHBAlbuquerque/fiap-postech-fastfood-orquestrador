@@ -1,0 +1,96 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'jacoco'
+}
+
+group = 'com.fiap'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.3.0'
+    implementation group: 'com.github.derjust', name: 'spring-data-dynamodb', version: '5.1.0'
+    implementation group: 'org.springframework.data', name: 'spring-data-commons', version: '3.3.1'
+    implementation 'org.apache.logging.log4j:log4j-core'
+    implementation 'org.apache.logging.log4j:log4j-api'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+    implementation 'org.hibernate.validator:hibernate-validator'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.2.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.3.0'
+
+    // aws
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.12.720'
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-core', version: '1.12.720'
+    implementation(group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.12.745') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
+    implementation group: 'software.amazon.awssdk', name: 'dynamodb', version: '2.26.5'
+    implementation(platform("software.amazon.awssdk:bom:2.16.70"))
+    implementation("software.amazon.awssdk:sso:2.16.76")
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.12.686'
+
+    // spring-cloud-aws
+    implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-core', version: '3.1.1'
+    implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-starter-sqs', version: '3.1.1'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+test {
+    testLogging {
+        events "passed", "failed", "skipped"
+    }
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.9"
+}
+
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = false
+        csv.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/fiap/fastfood/common/exceptions/*/**',
+                    'com/fiap/fastfood/external/services/*/**',
+                    'com/fiap/fastfood/core/entity/**',
+                    'com/fiap/fastfood/common/dto/*/**',
+                    'com/fiap/fastfood/common/validation/**'
+            ])
+        }))
+    }
+}
